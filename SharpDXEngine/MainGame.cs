@@ -28,6 +28,8 @@ namespace GameClient
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
 
             engineContent = Content;
             engineContent.RootDirectory = "Content";

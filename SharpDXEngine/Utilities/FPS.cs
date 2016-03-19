@@ -35,7 +35,7 @@ namespace GameClient.Utilities
                 fontTexture,
                 "FPS Drawing: " + fpsDrawning + "\nFPS Updating: " + fpsUpdating,
                 new Vector2(10, 10),
-                Color.Black
+                Color.Yellow
             );
 
             countframesDrawning++;
