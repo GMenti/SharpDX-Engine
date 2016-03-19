@@ -6,13 +6,22 @@ namespace GameClient.Controllers
 {
     class Cursor
     {
-        public Texture2D texture { get; set;}
+        public Texture2D normTexture { get; set;}
+        public Texture2D clickTexture { get; set; }
+        public Texture2D texture;
         public Vector2 position { get; set; }
 
         public void Update()
         {
             MouseState mouseState = Mouse.GetState();
             this.position = new Vector2(mouseState.X, mouseState.Y);
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed) {
+                this.texture = this.clickTexture;
+                return;
+            } 
+
+            this.texture = this.normTexture;
         }
 
         public void Draw()
@@ -26,7 +35,8 @@ namespace GameClient.Controllers
 
         public void Load()
         {
-            this.texture = MainGame.engineContent.Load<Texture2D>("Cursors/Default");
+            this.normTexture = MainGame.engineContent.Load<Texture2D>("Cursors/norm");
+            this.clickTexture = MainGame.engineContent.Load<Texture2D>("Cursors/click");
         }
         
     }
