@@ -7,31 +7,40 @@ namespace SharpDXEngine.Frames
     class Menu
     {
         private Picture background;
-        private TextBox textBox;
-        
+
+        private TextBox txtLogin;
+        private TextBox txtPassword;
+
         public void Initialize()
         {
             background = new Picture(new Vector2(0, 0));
-            textBox = new TextBox();
+            txtLogin = new TextBox();
+            txtPassword = new TextBox();
         }
 
         public void Load()
         {
             background.Load();
 
-            textBox.Load();
-            textBox.position = new Vector2(100, 100);
+            txtLogin.Load();
+            txtLogin.position = new Vector2(100, 100);
+
+            txtPassword.Load();
+            txtPassword.position = new Vector2(100, 200);
+            txtPassword.isPassword = true;
         }
 
         public void Update()
         {
-            textBox.Update();
+            txtLogin.Update();
+            txtPassword.Update();
         }
 
         public void Draw()
         {
             background.Draw();
-            textBox.Draw();
+            txtLogin.Draw();
+            txtPassword.Draw();
         }
     }
 }

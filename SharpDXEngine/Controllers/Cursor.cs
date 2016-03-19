@@ -16,7 +16,7 @@ namespace GameClient.Controllers
             MouseState mouseState = Mouse.GetState();
             this.position = new Vector2(mouseState.X, mouseState.Y);
 
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed) {
+            if (mouseState.LeftButton == ButtonState.Pressed) {
                 this.texture = this.clickTexture;
                 return;
             } 
