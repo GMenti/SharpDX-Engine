@@ -5,26 +5,48 @@ namespace GameClient.Utilities
 {
     static class FPS
     {
-        private static int frameRate = 0;
-        private static int _FPS = 0;
-        public static SpriteFont fontTexture = MainGame.engineContent.Load<SpriteFont>("Fonts/myFont");
+        private static int fpsUpdating;
+        private static int countframesUpdating;
+        private static int timerUpdate;
 
-        public static void Update(GameTime gameTime)
+        private static int fpsDrawning;
+        private static int countframesDrawning;
+        private static int timerDraw;
+
+        private static SpriteFont fontTexture = MainGame.engineContent.Load<SpriteFont>("Fonts/myFont");
+
+        
+        public static void Update()
         {
-            frameRate++;
-            if (gameTime.TotalGameTime.Seconds > 0) {
-                _FPS = frameRate / gameTime.TotalGameTime.Seconds;
+            countframesUpdating++;
+
+            if (MainGame.totalTime.Seconds < timerUpdate) {
+                return;
             }
+
+            fpsUpdating = countframesUpdating;
+            countframesUpdating = 0;
+            timerUpdate = MainGame.totalTime.Seconds + 1;
         }
 
-        public static void Draw(GameTime gameTime)
+        public static void Draw()
         {
             MainGame.spriteBatch.DrawString(
                 fontTexture,
-                "FPS Draw: " + _FPS,
+                "FPS Drawing: " + fpsDrawning + "\nFPS Updating: " + fpsUpdating,
                 new Vector2(10, 10),
                 Color.Yellow
             );
+
+            countframesDrawning++;
+
+            if (MainGame.totalTime.Seconds < timerDraw) {
+                return;
+            }
+
+            fpsDrawning = countframesDrawning;
+            countframesDrawning = 0;
+            timerDraw = MainGame.totalTime.Seconds + 1;
         }
     }
 }

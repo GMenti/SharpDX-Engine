@@ -12,6 +12,7 @@ namespace GameClient.Controllers
         public Vector2 position { get; set; }
         public string text { get; set; }
         public Color color { get; set; }
+        private int timer500;
 
         public void Load()
         {
@@ -33,6 +34,10 @@ namespace GameClient.Controllers
 
         public void Update()
         {
+            if (MainGame.totalTime.Seconds < this.timer500) {
+                return;
+            }
+
             InputSystem.CharEntered += delegate (Object o, CharacterEventArgs e) {
                 if (spriteFont.Characters.Contains(e.Character)) {
                     text += e.Character;
@@ -48,6 +53,8 @@ namespace GameClient.Controllers
                     text += "\n";
                 }
             };
+
+            this.timer500 = MainGame.totalTime.Seconds + 500;
         }
     }
 }

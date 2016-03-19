@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Input;
 using GameClient.Utilities;
 using GameClient.Components;
 using GameClient.Controllers;
+using SharpDXEngine.Frames;
+using System;
 
 namespace GameClient
 {
@@ -13,10 +15,11 @@ namespace GameClient
     {
         public static SpriteBatch spriteBatch;
         public static ContentManager engineContent;
+        public static TimeSpan totalTime;
 
         GraphicsDeviceManager graphics;
-        Cursor cursor;
-        TextBox textBox;
+
+        private Menu menu;
 
         /// <summary>
         /// Construtor da classe
@@ -27,6 +30,8 @@ namespace GameClient
 
             engineContent = Content;
             engineContent.RootDirectory = "Content";
+
+            this.menu = new Menu();
         }
 
         /// <summary>
@@ -34,10 +39,9 @@ namespace GameClient
         /// </summary> 
         protected override void Initialize()
         {
-            cursor = new Cursor();
-            textBox = new TextBox();
-
             InputSystem.Initialize(this.Window);
+  
+            menu.Initialize();
             base.Initialize();
         }
 
@@ -47,8 +51,7 @@ namespace GameClient
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            textBox.Load();
-            cursor.Load();
+            menu.Load();
         }
 
         /// <summary>
@@ -65,19 +68,14 @@ namespace GameClient
         /// Roda em média 60 vezes por segundo
         /// </summary> 
         /// <param name="gameTime">Fornece valores de tempo do jogo.</param>
-        int timer = 0;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (gameTime.TotalGameTime.Milliseconds > timer + 500) {
-                textBox.Update();
-                timer = gameTime.TotalGameTime.Milliseconds;
-            }
+            menu.Update();
 
-            FPS.Update(gameTime);
-            cursor.Update();
+            FPS.Update();
             base.Update(gameTime);
         }
 
@@ -88,14 +86,12 @@ namespace GameClient
         /// <param name="gameTime">Fornece valores de tempo do jogo.</param>
         protected override void Draw(GameTime gameTime)
         {
+            MainGame.totalTime = gameTime.TotalGameTime;
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-
-            FPS.Draw(gameTime);
-            cursor.Draw();
-            textBox.Draw();
-
+            menu.Draw();
+            FPS.Draw();
             spriteBatch.End();
 
             base.Draw(gameTime);
