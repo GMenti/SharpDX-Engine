@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Controllers\Cursor.cs" />
     <Compile Include="Controllers\TextBox.cs" />
+    <Compile Include="Frames\Components\Picture.cs" />
     <Compile Include="Frames\Menu.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />
