@@ -12,13 +12,15 @@ namespace SharpDXEngine.Frames
         public void Initialize()
         {
             background = new Picture(new Vector2(0, 0));
-            textBox = new TextBox(); 
+            textBox = new TextBox();
         }
 
         public void Load()
         {
             background.Load();
+
             textBox.Load();
+            textBox.position = new Vector2(100, 100);
         }
 
         public void Update()
