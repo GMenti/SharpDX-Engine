@@ -12,7 +12,7 @@ namespace GameClient.Controllers
         public Vector2 position { get; set; }
         public string text { get; set; }
         public Color color { get; set; }
-        private int timer500;
+        private int timer1000;
 
         public void Load()
         {
@@ -34,7 +34,7 @@ namespace GameClient.Controllers
 
         public void Update()
         {
-            if (MainGame.totalTime.Seconds < this.timer500) {
+            if (MainGame.totalTime.Milliseconds < this.timer1000) {
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace GameClient.Controllers
                 }
             };
 
-            this.timer500 = MainGame.totalTime.Seconds + 500;
+            this.timer1000 = MainGame.totalTime.Milliseconds + 1000;
         }
     }
 }
