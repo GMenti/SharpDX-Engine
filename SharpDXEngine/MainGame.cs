@@ -19,6 +19,7 @@ namespace GameClient
 
         GraphicsDeviceManager graphics;
 
+        private Cursor cursor;
         private Menu menu;
 
         /// <summary>
@@ -32,6 +33,7 @@ namespace GameClient
             engineContent.RootDirectory = "Content";
 
             this.menu = new Menu();
+            this.cursor = new Cursor();
         }
 
         /// <summary>
@@ -41,7 +43,8 @@ namespace GameClient
         {
             InputSystem.Initialize(this.Window);
   
-            menu.Initialize();
+            this.menu.Initialize();
+            
             base.Initialize();
         }
 
@@ -51,7 +54,8 @@ namespace GameClient
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            menu.Load();
+            this.menu.Load();
+            this.cursor.Load();
         }
 
         /// <summary>
@@ -73,7 +77,8 @@ namespace GameClient
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            menu.Update();
+            this.menu.Update();
+            this.cursor.Update();
 
             FPS.Update();
             base.Update(gameTime);
@@ -90,8 +95,11 @@ namespace GameClient
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            menu.Draw();
+
+            this.menu.Draw();
             FPS.Draw();
+            this.cursor.Draw();
+
             spriteBatch.End();
 
             base.Draw(gameTime);
