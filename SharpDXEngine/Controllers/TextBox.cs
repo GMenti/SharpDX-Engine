@@ -24,9 +24,6 @@ namespace GameClient.Controllers
         private int timer1000;
         private Timer timer;
 
-        private float width;
-        private float height;
-
         public void Load()
         {
             this.selected = false;
@@ -35,9 +32,6 @@ namespace GameClient.Controllers
             this.color = Color.White;
             this.spriteFont = MainGame.engineContent.Load<SpriteFont>("Fonts/myFont");
             this.texture = MainGame.engineContent.Load<Texture2D>("GUI/Default/textbox");
-
-            this.width = this.texture.Width * 12f;
-            this.height = this.texture.Height * 1.3f;
 
             timer = new Timer();
             timer.Interval = 500;
@@ -96,7 +90,7 @@ namespace GameClient.Controllers
                 return;
             }
 
-            if (mousePosition.X > this.position.X + this.width || mousePosition.Y > this.position.Y + this.height) {
+            if (mousePosition.X > this.position.X + this.texture.Width || mousePosition.Y > this.position.Y + this.texture.Height) {
                 return;
             }
 
