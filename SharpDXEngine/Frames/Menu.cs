@@ -7,31 +7,48 @@ namespace SharpDXEngine.Frames
     class Menu
     {
         private Picture background;
-        private TextBox textBox;
-        
+
+        private AnimPicture bitCoin;
+
+        private TextBox txtLogin;
+        private TextBox txtPassword;
+
         public void Initialize()
         {
             background = new Picture(new Vector2(0, 0));
-            textBox = new TextBox();
+            bitCoin = new AnimPicture(new Vector2(0, 0));  
+
+            txtLogin = new TextBox();
+            txtPassword = new TextBox();
         }
 
         public void Load()
         {
-            background.Load();
+            background.Load("GUI/Menu/background");
+            bitCoin.Load("GUI/Default/bitcoin");
 
-            textBox.Load();
-            textBox.position = new Vector2(100, 100);
+            txtLogin.Load();
+            txtLogin.position = new Vector2(100, 100);
+
+            txtPassword.Load();
+            txtPassword.position = new Vector2(100, 150);
+            txtPassword.isPassword = true;
         }
 
         public void Update()
         {
-            textBox.Update();
+            bitCoin.Update();
+            txtLogin.Update();
+            txtPassword.Update();
         }
 
         public void Draw()
         {
             background.Draw();
-            textBox.Draw();
+            bitCoin.Draw();
+
+            txtLogin.Draw();
+            txtPassword.Draw();
         }
     }
 }

@@ -4,19 +4,22 @@ using GameClient.Components;
 using System;
 using Microsoft.Xna.Framework.Input;
 using System.Timers;
+using System.Text.RegularExpressions;
 
 namespace GameClient.Controllers
 {
     class TextBox
     {
-        public SpriteFont spriteFont { get; set; }
-        public Texture2D texture { get; set; }
-        public Vector2 position { get; set; }
-        public string value { get; set; }
-        public Color color { get; set; }
+        public SpriteFont spriteFont;
+        public Texture2D texture;
+        public Vector2 position;
+        public string value;
+        public Color color;
 
         private Boolean selected;
         private string digitingChar;
+
+        public Boolean isPassword;
 
         private int timer1000;
         private Timer timer;
@@ -51,13 +54,18 @@ namespace GameClient.Controllers
             MainGame.spriteBatch.Draw(
                 this.texture,
                 this.position,
-                Color.Black
+                Color.Black * 0.8f
             );
 
+            string textOnField = this.value;
+
+            if (this.isPassword) {
+                textOnField = new Regex("\\S").Replace(textOnField, "*");
+            } 
 
             MainGame.spriteBatch.DrawString(
                 this.spriteFont,
-                this.value + this.digitingChar,
+                textOnField + this.digitingChar,
                 new Vector2(this.position.X + 3, this.position.Y + 1),
                 this.color
             );
