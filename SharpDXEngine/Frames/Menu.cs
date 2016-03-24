@@ -1,6 +1,9 @@
 ﻿using GameClient.Controllers;
 using Microsoft.Xna.Framework;
-using SharpDXEngine.Frames.Components;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
+using SharpDXEngine.Controllers;
 
 namespace SharpDXEngine.Frames
 {
@@ -8,47 +11,43 @@ namespace SharpDXEngine.Frames
     {
         private Picture background;
 
-        private AnimPicture bitCoin;
-
         private TextBox txtLogin;
         private TextBox txtPassword;
 
-        public void Initialize()
+        public Menu()
         {
             background = new Picture(new Vector2(0, 0));
-            bitCoin = new AnimPicture(new Vector2(0, 0));  
 
-            txtLogin = new TextBox();
-            txtPassword = new TextBox();
+            txtLogin = new TextBox(new Vector2(333, 340));
+            txtLogin.isSelected = true;
+
+            txtPassword = new TextBox(new Vector2(333, 367));
         }
 
-        public void Load()
+        public void Load(ContentManager content)
         {
-            background.Load("GUI/Menu/background");
-            bitCoin.Load("GUI/Default/bitcoin");
+            Song song = content.Load<Song>("Intro2");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
 
-            txtLogin.Load();
-            txtLogin.position = new Vector2(100, 100);
+            background.Load(content, "GUI/Menu/login");
 
-            txtPassword.Load();
-            txtPassword.position = new Vector2(100, 150);
-            txtPassword.isPassword = true;
+            txtLogin.Load(content, "Fonts/Georgia");
+            txtPassword.Load(content, "Fonts/Georgia");
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            bitCoin.Update();
-            txtLogin.Update();
-            txtPassword.Update();
+            txtLogin.Update(gameTime);
+            txtPassword.Update(gameTime);
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            background.Draw();
-            bitCoin.Draw();
+            background.Draw(spriteBatch);
 
-            txtLogin.Draw();
-            txtPassword.Draw();
+            txtLogin.Draw(spriteBatch);
+            txtPassword.Draw(spriteBatch);
         }
     }
 }

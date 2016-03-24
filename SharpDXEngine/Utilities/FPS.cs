@@ -1,52 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
+using MonoGame.Extended.Timers;
+using SharpDXEngine.Controllers;
+using System;
 
 namespace GameClient.Utilities
 {
-    static class FPS
+    class FPS : Label
     {
-        private static int fpsUpdating;
-        private static int countframesUpdating;
-        private static int timerUpdate;
+        private FramesPerSecondCounter fpsCounter;
+        private ContinuousClock fpsTimer;
 
-        private static int fpsDrawning;
-        private static int countframesDrawning;
-        private static int timerDraw;
+        public FPS(string text, Color color, Vector2 position) : base(text, color, position)
+        {
+            this.fpsCounter = new FramesPerSecondCounter();
+            this.fpsTimer = new ContinuousClock(1);
+            this.fpsTimer.Start();
+        }
 
-        private static SpriteFont fontTexture = MainGame.engineContent.Load<SpriteFont>("Fonts/myFont");
+        public void Refresh(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            this.fpsCounter.Update(gameTime);
+            this.fpsTimer.Update(gameTime);
+
+            fpsTimer.Tick += delegate (object sender, EventArgs e) {
+                base.text = "FPS: " + (int)fpsCounter.CurrentFramesPerSecond;
+            };
+        }
+
 
         
-        public static void Update()
-        {
-            countframesUpdating++;
-
-            if (MainGame.totalTime.Seconds < timerUpdate) {
-                return;
-            }
-
-            fpsUpdating = countframesUpdating;
-            countframesUpdating = 0;
-            timerUpdate = MainGame.totalTime.Seconds + 1;
-        }
-
-        public static void Draw()
-        {
-            MainGame.spriteBatch.DrawString(
-                fontTexture,
-                "FPS Drawing: " + fpsDrawning + "\nFPS Updating: " + fpsUpdating,
-                new Vector2(10, 10),
-                Color.Yellow
-            );
-
-            countframesDrawning++;
-
-            if (MainGame.totalTime.Seconds < timerDraw) {
-                return;
-            }
-
-            fpsDrawning = countframesDrawning;
-            countframesDrawning = 0;
-            timerDraw = MainGame.totalTime.Seconds + 1;
-        }
     }
 }

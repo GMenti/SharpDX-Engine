@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,10 +7,21 @@ namespace GameClient.Controllers
 {
     class Cursor
     {
-        public Texture2D normTexture { get; set;}
-        public Texture2D clickTexture { get; set; }
-        public Texture2D texture;
-        public Vector2 position { get; set; }
+        private Texture2D normTexture;
+        private Texture2D clickTexture;
+        private Texture2D activeTexture;
+        private Vector2 position;
+
+        public Cursor()
+        {
+            //TODO
+        }
+
+        public void Load(ContentManager content)
+        {
+            this.normTexture = content.Load<Texture2D>("Cursors/norm");
+            this.clickTexture = content.Load<Texture2D>("Cursors/click");
+        }
 
         public void Update()
         {
@@ -17,27 +29,23 @@ namespace GameClient.Controllers
             this.position = new Vector2(mouseState.X, mouseState.Y);
 
             if (mouseState.LeftButton == ButtonState.Pressed) {
-                this.texture = this.clickTexture;
+                this.activeTexture = this.clickTexture;
                 return;
             } 
 
-            this.texture = this.normTexture;
+            this.activeTexture = this.normTexture;
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            MainGame.spriteBatch.Draw(
-                this.texture, 
+            spriteBatch.Draw(
+                this.activeTexture, 
                 this.position, 
                 Color.White
             );
         }
 
-        public void Load()
-        {
-            this.normTexture = MainGame.engineContent.Load<Texture2D>("Cursors/norm");
-            this.clickTexture = MainGame.engineContent.Load<Texture2D>("Cursors/click");
-        }
+        
         
     }
 }

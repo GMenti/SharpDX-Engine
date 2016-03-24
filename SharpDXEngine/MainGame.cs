@@ -13,14 +13,14 @@ namespace GameClient
 
     public class MainGame : Game
     {
-        public static SpriteBatch spriteBatch;
-        public static ContentManager engineContent;
+        public SpriteBatch spriteBatch;
         public static TimeSpan totalTime;
 
         GraphicsDeviceManager graphics;
 
         private Cursor cursor;
         private Menu menu;
+        private FPS fpsDrawning;
 
         /// <summary>
         /// Construtor da classe
@@ -31,11 +31,11 @@ namespace GameClient
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
 
-            engineContent = Content;
-            engineContent.RootDirectory = "Content";
+            Content.RootDirectory = "Content";
 
             this.menu = new Menu();
             this.cursor = new Cursor();
+            this.fpsDrawning = new FPS("", Color.Yellow, new Vector2(5, 5));
         }
 
         /// <summary>
@@ -44,9 +44,6 @@ namespace GameClient
         protected override void Initialize()
         {
             InputSystem.Initialize(this.Window);
-  
-            this.menu.Initialize();
-            
             base.Initialize();
         }
 
@@ -56,8 +53,9 @@ namespace GameClient
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            this.menu.Load();
-            this.cursor.Load();
+            this.menu.Load(this.Content);
+            this.cursor.Load(this.Content);
+            this.fpsDrawning.Load(this.Content, "Fonts/Georgia");
         }
 
         /// <summary>
@@ -66,7 +64,6 @@ namespace GameClient
         protected override void UnloadContent()
         {
             this.Content.Dispose();
-            engineContent.Dispose();
         }
 
         /// <summary>
@@ -79,10 +76,9 @@ namespace GameClient
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            this.menu.Update();
+            this.menu.Update(gameTime);
             this.cursor.Update();
-
-            FPS.Update();
+            
             base.Update(gameTime);
         }
 
@@ -94,14 +90,13 @@ namespace GameClient
         protected override void Draw(GameTime gameTime)
         {
             MainGame.totalTime = gameTime.TotalGameTime;
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            GraphicsDevice.Clear(Color.Gray);
+            
             spriteBatch.Begin();
-
-            this.menu.Draw();
-            FPS.Draw();
-            this.cursor.Draw();
-
+            this.menu.Draw(spriteBatch);
+            this.cursor.Draw(spriteBatch);
+            this.fpsDrawning.Refresh(gameTime);
+            this.fpsDrawning.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);

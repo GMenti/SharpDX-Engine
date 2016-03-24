@@ -5,126 +5,52 @@ using System;
 using Microsoft.Xna.Framework.Input;
 using System.Timers;
 using System.Text.RegularExpressions;
+using MonoGame.Extended.BitmapFonts;
+using Microsoft.Xna.Framework.Content;
+using SharpDXEngine.Controllers;
 
 namespace GameClient.Controllers
 {
     class TextBox
     {
-        public SpriteFont spriteFont;
-        public Texture2D texture;
-        public Vector2 position;
-        public string value;
-        public Color color;
+        private Label labelText;
+        private Digiter digiter;
 
-        private Boolean selected;
-        private string digitingChar;
+        public Boolean isSelected;
 
-        public Boolean isPassword;
-
-        private int timer1000;
-        private Timer timer;
-
-        public void Load()
+        public TextBox(Vector2 position)
         {
-            this.selected = false;
-            this.value = "";
-            this.position = new Vector2(0, 0);
-            this.color = Color.White;
-            this.spriteFont = MainGame.engineContent.Load<SpriteFont>("Fonts/myFont");
-            this.texture = MainGame.engineContent.Load<Texture2D>("GUI/Default/textbox");
-
-            timer = new Timer();
-            timer.Interval = 500;
-            timer.Elapsed += OnTimedEvent;
+            this.labelText = new Label("", Color.White, position);
+            this.digiter = new Digiter();
         }
 
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
+        public void Load(ContentManager content, string filePath)
         {
-            if (this.selected == false) {
-                timer.Enabled = false;
-                this.digitingChar = "";
-                return;
+            this.labelText.Load(content, filePath);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            this.labelText.Draw(spriteBatch);
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            this.checkSelected();
+
+            if (this.isSelected == true) {
+                this.labelText.text = this.digiter.getKeyPressed(gameTime);
             }
-
-            this.digitingChar = (digitingChar == "|") ? "" : "|";
         }
 
-        public void Draw()
-        {
-            MainGame.spriteBatch.Draw(
-                this.texture,
-                this.position,
-                Color.Black * 0.8f
-            );
-
-            string textOnField = this.value;
-
-            if (this.isPassword) {
-                textOnField = new Regex("\\S").Replace(textOnField, "*");
-            } 
-
-            MainGame.spriteBatch.DrawString(
-                this.spriteFont,
-                textOnField + this.digitingChar,
-                new Vector2(this.position.X + 3, this.position.Y + 1),
-                this.color
-            );
-        }
-
-        public void Update()
-        {
-            this.UpdateText();
-            this.checkClick();
-        }
-
-        private void checkClick()
+        private void checkSelected()
         {
             if (Mouse.GetState().LeftButton != ButtonState.Pressed) {
                 return;
             }
 
-            this.selected = false;
-
-            Point mousePosition = Mouse.GetState().Position;
-            if (mousePosition.X < position.X || mousePosition.Y < position.Y) {
-                return;
-            }
-
-            if (mousePosition.X > this.position.X + this.texture.Width || mousePosition.Y > this.position.Y + this.texture.Height) {
-                return;
-            }
-
-            this.selected = true;
-            this.timer.Enabled = true;
-        }
-
-        private void UpdateText()
-        {
-            if (MainGame.totalTime.Milliseconds < this.timer1000) {
-                return;
-            }
-
-            InputSystem.CharEntered += delegate (Object o, CharacterEventArgs e) {
-                if (this.selected == false) {
-                    return;
-                }
-
-                if (spriteFont.Characters.Contains(e.Character)) {
-                    value += e.Character;
-                    return;
-                }
-
-                if (e.Character == '\b' && value.Length > 0) {
-                    value = value.Substring(0, value.Length - 1);
-                    return;
-                }
-
-                if (e.Character == '\r') {
-                    value += "\n";
-                }
-            };
-
-            this.timer1000 = MainGame.totalTime.Milliseconds + 1000;
+            Rectangle position = this.labelText.GetStringRectangle();
+            this.isSelected = position.Contains(Mouse.GetState().Position);
         }
     }
 }
