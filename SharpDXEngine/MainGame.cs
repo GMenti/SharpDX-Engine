@@ -20,7 +20,7 @@ namespace GameClient
 
         private Cursor cursor;
         private Menu menu;
-        private FPS fps;
+        private FPS fpsDrawning;
 
         /// <summary>
         /// Construtor da classe
@@ -35,7 +35,7 @@ namespace GameClient
 
             this.menu = new Menu();
             this.cursor = new Cursor();
-            this.fps = new FPS("", Color.Yellow, new Vector2(5, 5));
+            this.fpsDrawning = new FPS("", Color.Yellow, new Vector2(5, 5));
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace GameClient
             spriteBatch = new SpriteBatch(GraphicsDevice);
             this.menu.Load(this.Content);
             this.cursor.Load(this.Content);
-            this.fps.Load(this.Content);
+            this.fpsDrawning.Load(this.Content);
         }
 
         /// <summary>
@@ -91,11 +91,12 @@ namespace GameClient
         {
             MainGame.totalTime = gameTime.TotalGameTime;
             GraphicsDevice.Clear(Color.Gray);
-            this.fps.Update(gameTime);
+            
             spriteBatch.Begin();
             this.menu.Draw(spriteBatch);
-            this.fps.Draw(spriteBatch);
             this.cursor.Draw(spriteBatch);
+            this.fpsDrawning.Refresh(gameTime);
+            this.fpsDrawning.Draw(spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
