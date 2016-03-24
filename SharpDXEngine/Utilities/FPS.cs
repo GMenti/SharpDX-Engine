@@ -8,7 +8,7 @@ using System;
 
 namespace GameClient.Utilities
 {
-    class FPS : Caption
+    class FPS : Label
     {
         private FramesPerSecondCounter fpsCounter;
         private ContinuousClock fpsTimer;
@@ -28,7 +28,6 @@ namespace GameClient.Utilities
 
             fpsTimer.Tick += delegate (object sender, EventArgs e) {
                 base.text = "FPS: " + (int)fpsCounter.CurrentFramesPerSecond;
-                this.fpsCounter.Reset();
             };
         }
 

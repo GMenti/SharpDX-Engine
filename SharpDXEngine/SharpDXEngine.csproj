@@ -54,8 +54,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Controllers\Cursor.cs" />
+    <Compile Include="Controllers\Digiter.cs" />
     <Compile Include="Controllers\TextBox.cs" />
-    <Compile Include="Controllers\Caption.cs" />
+    <Compile Include="Controllers\Label.cs" />
     <Compile Include="Controllers\AnimPicture.cs" />
     <Compile Include="Controllers\Picture.cs" />
     <Compile Include="Frames\Menu.cs" />

@@ -18,8 +18,10 @@ namespace SharpDXEngine.Frames
         {
             background = new Picture(new Vector2(0, 0));
 
-            txtLogin = new TextBox(200, 20);
-            txtPassword = new TextBox(200, 20);
+            txtLogin = new TextBox(new Vector2(333, 340));
+            txtLogin.isSelected = true;
+
+            txtPassword = new TextBox(new Vector2(333, 367));
         }
 
         public void Load(ContentManager content)
@@ -31,21 +33,13 @@ namespace SharpDXEngine.Frames
             background.Load(content, "GUI/Menu/login");
 
             txtLogin.Load(content, "Fonts/Georgia");
-            txtLogin.position = new Vector2(333, 340);
-            txtLogin.maxLength = 26;
-            txtLogin.selected = true;
-            txtLogin.timer.Enabled = true;
-           
             txtPassword.Load(content, "Fonts/Georgia");
-            txtPassword.position = new Vector2(333, 367);
-            txtPassword.isPassword = true;
-            txtPassword.maxLength = 26;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
-            txtLogin.Update();
-            txtPassword.Update();
+            txtLogin.Update(gameTime);
+            txtPassword.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

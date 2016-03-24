@@ -55,7 +55,7 @@ namespace GameClient
             spriteBatch = new SpriteBatch(GraphicsDevice);
             this.menu.Load(this.Content);
             this.cursor.Load(this.Content);
-            this.fpsDrawning.Load(this.Content);
+            this.fpsDrawning.Load(this.Content, "Fonts/Georgia");
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace GameClient
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            this.menu.Update();
+            this.menu.Update(gameTime);
             this.cursor.Update();
             
             base.Update(gameTime);
