@@ -55,8 +55,9 @@
   <ItemGroup>
     <Compile Include="Controllers\Cursor.cs" />
     <Compile Include="Controllers\TextBox.cs" />
-    <Compile Include="Frames\Components\AnimPicture.cs" />
-    <Compile Include="Frames\Components\Picture.cs" />
+    <Compile Include="Controllers\Caption.cs" />
+    <Compile Include="Controllers\AnimPicture.cs" />
+    <Compile Include="Controllers\Picture.cs" />
     <Compile Include="Frames\Menu.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />
@@ -65,6 +66,10 @@
     <Compile Include="Utilities\FPS.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Extended.0.4.64\lib\MonoGame.Extended.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
@@ -90,7 +95,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <PropertyGroup>

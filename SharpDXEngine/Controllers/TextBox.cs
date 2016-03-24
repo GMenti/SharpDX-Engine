@@ -5,43 +5,56 @@ using System;
 using Microsoft.Xna.Framework.Input;
 using System.Timers;
 using System.Text.RegularExpressions;
+using MonoGame.Extended.BitmapFonts;
+using Microsoft.Xna.Framework.Content;
 
 namespace GameClient.Controllers
 {
     class TextBox
     {
-        public SpriteFont spriteFont;
+        public BitmapFont spriteFont;
         public Texture2D texture;
         public Vector2 position;
         public string value;
         public Color color;
 
-        private Boolean selected;
+        private int width;
+        private int height;
+
+        public Boolean selected;
         private string digitingChar;
 
         public Boolean isPassword;
 
         private int timer1000;
-        private Timer timer;
+        public Timer timer;
 
-        public void Load()
+        public int maxLength;
+
+        public TextBox(int width, int height)
         {
             this.selected = false;
             this.value = "";
             this.position = new Vector2(0, 0);
             this.color = Color.White;
-            this.spriteFont = MainGame.engineContent.Load<SpriteFont>("Fonts/myFont");
-            this.texture = MainGame.engineContent.Load<Texture2D>("GUI/Default/textbox");
 
+            this.width = width;
+            this.height = height;
+        }
+
+        public void Load(ContentManager content, string texturePath = null)
+        {
             timer = new Timer();
-            timer.Interval = 500;
+            timer.Interval = 300;
             timer.Elapsed += OnTimedEvent;
+
+            this.spriteFont = content.Load<BitmapFont>(texturePath);
         }
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             if (this.selected == false) {
-                timer.Enabled = false;
+                this.timer.Enabled = false;
                 this.digitingChar = "";
                 return;
             }
@@ -49,13 +62,15 @@ namespace GameClient.Controllers
             this.digitingChar = (digitingChar == "|") ? "" : "|";
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
-            MainGame.spriteBatch.Draw(
-                this.texture,
-                this.position,
-                Color.Black * 0.8f
-            );
+            if (this.texture != null) {
+                spriteBatch.Draw(
+                    this.texture,
+                    this.position,
+                    Color.Black * 0.8f
+                );
+            }
 
             string textOnField = this.value;
 
@@ -63,7 +78,7 @@ namespace GameClient.Controllers
                 textOnField = new Regex("\\S").Replace(textOnField, "*");
             } 
 
-            MainGame.spriteBatch.DrawString(
+            spriteBatch.DrawString(
                 this.spriteFont,
                 textOnField + this.digitingChar,
                 new Vector2(this.position.X + 3, this.position.Y + 1),
@@ -90,7 +105,7 @@ namespace GameClient.Controllers
                 return;
             }
 
-            if (mousePosition.X > this.position.X + this.texture.Width || mousePosition.Y > this.position.Y + this.texture.Height) {
+            if (mousePosition.X > this.position.X + this.width || mousePosition.Y > this.position.Y + this.height) {
                 return;
             }
 
@@ -109,19 +124,25 @@ namespace GameClient.Controllers
                     return;
                 }
 
-                if (spriteFont.Characters.Contains(e.Character)) {
-                    value += e.Character;
+                if (e.Character == '\b' && this.value.Length > 0) {
+                    this.value = value.Substring(0, value.Length - 1);
                     return;
                 }
 
-                if (e.Character == '\b' && value.Length > 0) {
-                    value = value.Substring(0, value.Length - 1);
+                if (this.value.Length >= this.maxLength) {
                     return;
                 }
+
+                //if (spriteFont.Characters.Contains(e.Character)) {
+                    
+                //}
 
                 if (e.Character == '\r') {
-                    value += "\n";
+                    this.value += "\n";
                 }
+
+                this.value += e.Character;
+                return;
             };
 
             this.timer1000 = MainGame.totalTime.Milliseconds + 1000;
