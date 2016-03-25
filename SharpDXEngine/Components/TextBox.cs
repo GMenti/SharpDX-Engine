@@ -30,11 +30,8 @@ namespace SharpDXEngine.Components {
 
         public void Update(GameTime gameTime)
         {
+            this.labelText.text = this.digiter.text;
             this.checkSelected();
-
-            if (this.isSelected == true) {
-                this.labelText.text = this.digiter.getKeyPressed(gameTime);
-            }
         }
 
         private void checkSelected()
