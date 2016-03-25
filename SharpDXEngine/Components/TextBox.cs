@@ -1,16 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GameClient.Components;
 using System;
 using Microsoft.Xna.Framework.Input;
-using System.Timers;
-using System.Text.RegularExpressions;
-using MonoGame.Extended.BitmapFonts;
 using Microsoft.Xna.Framework.Content;
-using SharpDXEngine.Controllers;
 
-namespace GameClient.Controllers
-{
+namespace SharpDXEngine.Components {
     class TextBox
     {
         private Label labelText;

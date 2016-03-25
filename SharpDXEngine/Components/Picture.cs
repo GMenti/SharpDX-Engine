@@ -1,10 +1,8 @@
-﻿using GameClient;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SharpDXEngine.Controllers
-{
+namespace SharpDXEngine.Components {
     class Picture
     {
         protected Texture2D texture;

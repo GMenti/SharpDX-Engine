@@ -1,12 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Timers;
-using SharpDXEngine.Controllers;
+using SharpDXEngine.Components;
 using System;
 
-namespace GameClient.Utilities {
+namespace SharpDXEngine.Utilities {
     class FPS : Label {
         private FramesPerSecondCounter fpsCounter;
         private ContinuousClock fpsTimer;

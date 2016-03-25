@@ -1,5 +1,4 @@
-﻿using GameClient;
-using System;
+﻿using System;
 
 namespace SharpDXEngine
 {

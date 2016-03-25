@@ -3,8 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace GameClient.Controllers
-{
+namespace SharpDXEngine.Components {
     class Cursor
     {
         private Texture2D normTexture;

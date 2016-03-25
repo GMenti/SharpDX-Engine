@@ -53,17 +53,17 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Controllers\Cursor.cs" />
-    <Compile Include="Controllers\Digiter.cs" />
-    <Compile Include="Controllers\TextBox.cs" />
-    <Compile Include="Controllers\Label.cs" />
-    <Compile Include="Controllers\AnimPicture.cs" />
-    <Compile Include="Controllers\Picture.cs" />
+    <Compile Include="Components\Cursor.cs" />
+    <Compile Include="Components\Digiter.cs" />
+    <Compile Include="Components\TextBox.cs" />
+    <Compile Include="Components\Label.cs" />
+    <Compile Include="Components\AnimPicture.cs" />
+    <Compile Include="Components\Picture.cs" />
     <Compile Include="Frames\Menu.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\EKeyboard.cs" />
+    <Compile Include="Packages\EKeyboard.cs" />
     <Compile Include="Utilities\FPS.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,9 @@
-﻿using GameClient.Components;
+﻿using SharpDXEngine.Packages;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Timers;
 using System;
 
-namespace SharpDXEngine.Controllers
-{
+namespace SharpDXEngine.Components {
     class Digiter
     {
         private string text;

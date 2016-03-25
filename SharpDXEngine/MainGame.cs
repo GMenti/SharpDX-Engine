@@ -2,14 +2,13 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using GameClient.Utilities;
-using GameClient.Components;
-using GameClient.Controllers;
+using SharpDXEngine.Utilities;
+using SharpDXEngine.Components;
+using SharpDXEngine.Packages;
 using SharpDXEngine.Frames;
 using System;
 
-namespace GameClient
-{
+namespace SharpDXEngine {
 
     public class MainGame : Game
     {
