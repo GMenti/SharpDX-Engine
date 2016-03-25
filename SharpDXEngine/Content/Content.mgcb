@@ -14,12 +14,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Fonts/myFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:Fonts/myFont.spritefont
-
 #begin Cursors\norm.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -28,7 +22,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Cursors\norm.png
 
@@ -40,7 +33,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Cursors\click.png
 
@@ -52,7 +44,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/Default/textbox.png
 
@@ -64,7 +55,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/Menu/textbox.png
 
@@ -76,7 +66,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/Default/design.png
 
@@ -88,7 +77,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/Default/design2.png
 
@@ -100,7 +88,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Default\bitcoin.png
 
@@ -112,7 +99,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/Menu/background.jpg
 
@@ -124,7 +110,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI/Menu/login.jpg
 
@@ -136,7 +121,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\1.jpg
 
@@ -148,7 +132,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\2.jpg
 
@@ -160,7 +143,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\3.jpg
 
@@ -172,7 +154,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\4.jpg
 
@@ -184,7 +165,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\5.jpg
 
@@ -196,7 +176,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\6.jpg
 
@@ -208,7 +187,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\7.jpg
 
@@ -220,7 +198,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\8.jpg
 
@@ -232,7 +209,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:GUI\Menu\ani\9.jpg
 
@@ -261,7 +237,6 @@
 /processorParam:GenerateMipmaps=False
 /processorParam:PremultiplyAlpha=True
 /processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Fonts/Georgia_0.png
 
