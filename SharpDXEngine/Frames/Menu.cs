@@ -24,7 +24,9 @@ namespace SharpDXEngine.Frames
                 isSelected = true
             };
 
-            txtPassword = new TextBox(new Vector2(333, 367), 26);
+            txtPassword = new TextBox(new Vector2(333, 367), 26) {
+                isPassword = true
+            };
 
             InputSystem.CharEntered += delegate (Object o, CharacterEventArgs e) {
                 if (e.Character != '\t') {

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using SharpDXEngine.Libraries;
 using MonoGame.Extended.Timers;
+using System.Text.RegularExpressions;
 
 namespace SharpDXEngine.Components {
     class TextBox
@@ -15,6 +16,7 @@ namespace SharpDXEngine.Components {
         private string text;
         private int maxLength;
         public Boolean isSelected;
+        public Boolean isPassword;
 
         private ContinuousClock selectedTimer;
         private string selectedChar;
@@ -57,7 +59,13 @@ namespace SharpDXEngine.Components {
         public void Update(GameTime gameTime)
         {
             this.selectedTimer.Update(gameTime);
-            this.label.caption = this.text + this.selectedChar;
+
+            string caption = this.text;
+            if (this.isPassword) {
+                caption = new Regex("\\S").Replace(caption, "*");
+            }
+
+            this.label.caption = caption + this.selectedChar;
             this.checkSelected();
         }
 
