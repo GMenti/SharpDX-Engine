@@ -240,3 +240,14 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/Georgia_0.png
 
+#begin GUI/Menu/menu.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:GUI/Menu/menu.png
+

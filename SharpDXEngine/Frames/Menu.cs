@@ -12,6 +12,7 @@ namespace SharpDXEngine.Frames
     class Menu
     {
         private Picture background;
+        private Picture menu;
 
         private TextBox txtLogin;
         private TextBox txtPassword;
@@ -19,6 +20,7 @@ namespace SharpDXEngine.Frames
         public Menu()
         {
             background = new Picture(new Vector2(0, 0));
+            menu = new Picture(new Vector2(0, 0));
 
             txtLogin = new TextBox(new Vector2(334, 341), 26) {
                 isSelected = true
@@ -50,6 +52,7 @@ namespace SharpDXEngine.Frames
             MediaPlayer.IsRepeating = true;
 
             background.Load(content, "GUI/Menu/background");
+            menu.Load(content, "GUI/Menu/menu");
 
             txtLogin.Load(
                 content, 
@@ -73,6 +76,7 @@ namespace SharpDXEngine.Frames
         public void Draw(SpriteBatch spriteBatch)
         {
             background.Draw(spriteBatch);
+            menu.Draw(spriteBatch);
 
             txtLogin.Draw(spriteBatch);
             txtPassword.Draw(spriteBatch);
