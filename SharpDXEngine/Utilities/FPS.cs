@@ -23,7 +23,7 @@ namespace SharpDXEngine.Utilities {
             this.fps = (int)fpsCounter.TotalFrames;
 
             fpsTimer.Tick += delegate (object sender, EventArgs e) {
-                base.text = "FPS: " + this.fps;
+                base.caption = "FPS: " + this.fps;
                 this.fpsCounter.Reset();
             };
         }

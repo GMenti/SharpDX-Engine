@@ -98,6 +98,7 @@ namespace SharpDXEngine {
             spriteBatch.Begin();
             this.menu.Draw(spriteBatch);
             this.cursor.Draw(spriteBatch);
+
             this.fpsDrawning.Refresh(gameTime);
             this.fpsDrawning.Draw(spriteBatch);
             spriteBatch.End();

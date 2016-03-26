@@ -17,10 +17,10 @@ namespace SharpDXEngine.Frames
         {
             background = new Picture(new Vector2(0, 0));
 
-            txtLogin = new TextBox(new Vector2(333, 340));
+            txtLogin = new TextBox(new Vector2(333, 340), 12);
             txtLogin.isSelected = true;
 
-            txtPassword = new TextBox(new Vector2(333, 367));
+            txtPassword = new TextBox(new Vector2(333, 367), 12);
         }
 
         public void Load(ContentManager content)

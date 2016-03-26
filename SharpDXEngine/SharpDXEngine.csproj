@@ -54,7 +54,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Cursor.cs" />
-    <Compile Include="Components\Digiter.cs" />
     <Compile Include="Components\TextBox.cs" />
     <Compile Include="Components\Label.cs" />
     <Compile Include="Components\AnimPicture.cs" />

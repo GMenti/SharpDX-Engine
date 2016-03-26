@@ -7,14 +7,14 @@ namespace SharpDXEngine.Components {
     class Label
     {
 
-        public string text;
+        public string caption;
         public BitmapFont font;
         public Color color;
         public Vector2 position;
 
         public Label(string text, Color color, Vector2 position)
         {
-            this.text = text;
+            this.caption = text;
             this.color = color;
             this.position = position;
         }
@@ -33,7 +33,7 @@ namespace SharpDXEngine.Components {
         {
             spriteBatch.DrawString(
                this.font,
-               this.text,
+               this.caption,
                this.position,
                this.color
            );
@@ -41,7 +41,7 @@ namespace SharpDXEngine.Components {
 
         public Rectangle GetStringRectangle()
         {
-            return this.font.GetStringRectangle(this.text, this.position);
+            return this.font.GetStringRectangle(this.caption, this.position);
         }
 
         public Rectangle GetRectangle()
