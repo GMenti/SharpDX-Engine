@@ -4,6 +4,7 @@ using System;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using SharpDXEngine.Libraries;
+using MonoGame.Extended.Timers;
 
 namespace SharpDXEngine.Components {
     class TextBox
@@ -15,10 +16,12 @@ namespace SharpDXEngine.Components {
         private int maxLength;
         public Boolean isSelected;
 
+        private ContinuousClock selectedTimer;
+        private string selectedChar;
+
         public TextBox(Vector2 position, int maxLength)
         {
             this.picture = new Picture(position);
-
             this.label = new Label(
                 "", 
                 Color.White, 
@@ -28,6 +31,13 @@ namespace SharpDXEngine.Components {
             this.text = "";
             this.maxLength = maxLength;
             this.isSelected = false;
+            this.selectedChar = "";
+
+            this.selectedTimer = new ContinuousClock(new TimeSpan(0, 0, 0, 0, 300));
+            this.selectedTimer.Tick += delegate (object sender, EventArgs e) {
+                this.selectedChar = (this.selectedChar == "|" || this.isSelected == false) ? "" : "|";
+            };
+            this.selectedTimer.Start();
 
             this.StartKeyReceiver();
         }
@@ -46,8 +56,9 @@ namespace SharpDXEngine.Components {
 
         public void Update(GameTime gameTime)
         {
-            this.label.caption = this.text;
-            this.isSelected = this.checkSelected();
+            this.selectedTimer.Update(gameTime);
+            this.label.caption = this.text + this.selectedChar;
+            this.checkSelected();
         }
 
         private void StartKeyReceiver() {
@@ -70,19 +81,21 @@ namespace SharpDXEngine.Components {
                     return;
                 }
 
+                if (e.Character == '\t') {
+                    return;
+                }
+
                 this.text += e.Character;
             };
         }
 
-        private Boolean checkSelected() {
+        private void checkSelected() {
             if (Mouse.GetState().LeftButton != ButtonState.Pressed) {
-                return this.isSelected;
+                return;
             }
 
             Rectangle position = this.picture.getRectangle();
             this.isSelected = position.Contains(Mouse.GetState().Position);
-
-            return this.isSelected;
         }
 
         private Boolean checkFull() {

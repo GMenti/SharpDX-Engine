@@ -29,7 +29,8 @@ namespace SharpDXEngine {
             graphics = new GraphicsDeviceManager(this) {
                 PreferredBackBufferWidth = 800,
                 PreferredBackBufferHeight = 600,
-                SynchronizeWithVerticalRetrace = false
+                SynchronizeWithVerticalRetrace = false,
+                IsFullScreen = false
             };
             graphics.ApplyChanges();
             base.IsFixedTimeStep = false;
