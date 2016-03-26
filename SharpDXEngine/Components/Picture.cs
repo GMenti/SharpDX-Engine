@@ -38,5 +38,14 @@ namespace SharpDXEngine.Components {
                 0f
             );
         }
+
+        public Rectangle getRectangle() {
+            return new Rectangle(
+                (int)this.position.X,
+                (int)this.position.Y,
+                this.texture.Width,
+                this.texture.Height
+            );
+        }
     }
 }

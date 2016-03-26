@@ -44,9 +44,5 @@ namespace SharpDXEngine.Components {
             return this.font.GetStringRectangle(this.caption, this.position);
         }
 
-        public Rectangle GetRectangle()
-        {
-            return this.font.GetStringRectangle("asd", this.position);
-        }
     }
 }

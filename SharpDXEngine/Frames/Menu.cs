@@ -17,10 +17,10 @@ namespace SharpDXEngine.Frames
         {
             background = new Picture(new Vector2(0, 0));
 
-            txtLogin = new TextBox(new Vector2(333, 340), 12);
+            txtLogin = new TextBox(new Vector2(334, 341), 26);
             txtLogin.isSelected = true;
 
-            txtPassword = new TextBox(new Vector2(333, 367), 12);
+            txtPassword = new TextBox(new Vector2(333, 367), 26);
         }
 
         public void Load(ContentManager content)
@@ -29,10 +29,19 @@ namespace SharpDXEngine.Frames
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
 
-            background.Load(content, "GUI/Menu/login");
+            background.Load(content, "GUI/Menu/background");
 
-            txtLogin.Load(content, "Fonts/Georgia");
-            txtPassword.Load(content, "Fonts/Georgia");
+            txtLogin.Load(
+                content, 
+                "GUI/Menu/textbox",
+                "Fonts/Georgia"
+            );
+
+            txtPassword.Load(
+                content,
+                "GUI/Menu/textbox",
+                "Fonts/Georgia"
+            );
         }
 
         public void Update(GameTime gameTime)
