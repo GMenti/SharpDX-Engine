@@ -31,7 +31,7 @@ namespace SharpDXEngine.Components {
         }
 
         private Boolean _isSelected;
-        public Boolean selected {
+        public Boolean isSelected {
             get {
                 return this._isSelected;
             }
@@ -71,7 +71,7 @@ namespace SharpDXEngine.Components {
 
         public void Update(GameTime gameTime)
         {
-            if (this.selected == false) {
+            if (this.isSelected == false) {
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace SharpDXEngine.Components {
 
         private void StartInputSystem() {
             InputSystem.CharEntered += delegate (Object o, CharacterEventArgs e) {
-                if (this.selected == false) {
+                if (this.isSelected == false) {
                     return;
                 }
 
@@ -108,7 +108,7 @@ namespace SharpDXEngine.Components {
             };
 
             InputSystem.KeyDown += delegate (Object o, KeyEventArgs e) {
-                if (this.selected == false) {
+                if (this.isSelected == false) {
                     return;
                 }
 
@@ -129,7 +129,7 @@ namespace SharpDXEngine.Components {
 
             InputSystem.MouseUp += delegate (Object o, MouseEventArgs e) {
                 Rectangle position = this.picture.getRectangle();
-                this.selected = position.Contains(e.Location);
+                this.isSelected = position.Contains(e.Location);
             };
         }
 
