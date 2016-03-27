@@ -1,11 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using SharpDXEngine.Libraries;
 using MonoGame.Extended.Timers;
 using System.Text.RegularExpressions;
+using Microsoft.Xna.Framework.Input;
 
 namespace SharpDXEngine.Components {
     class TextBox
@@ -17,9 +17,7 @@ namespace SharpDXEngine.Components {
         private int maxLength;
         public Boolean isSelected;
         public Boolean isPassword;
-
-        private ContinuousClock selectedTimer;
-        private string selectedChar;
+        private int position;
 
         public TextBox(Vector2 position, int maxLength)
         {
@@ -33,15 +31,9 @@ namespace SharpDXEngine.Components {
             this.text = "";
             this.maxLength = maxLength;
             this.isSelected = false;
-            this.selectedChar = "";
+            this.position = 0;
 
-            this.selectedTimer = new ContinuousClock(new TimeSpan(0, 0, 0, 0, 300));
-            this.selectedTimer.Tick += delegate (object sender, EventArgs e) {
-                this.selectedChar = (this.selectedChar == "|" || this.isSelected == false) ? "" : "|";
-            };
-            this.selectedTimer.Start();
-
-            this.StartKeyReceiver();
+            this.StartInputSystem();
         }
 
         public void Load(ContentManager content, string picturePath, string fontPath)
@@ -58,25 +50,33 @@ namespace SharpDXEngine.Components {
 
         public void Update(GameTime gameTime)
         {
-            this.selectedTimer.Update(gameTime);
-
             string caption = this.text;
             if (this.isPassword) {
                 caption = new Regex("\\S").Replace(caption, "*");
             }
 
-            this.label.caption = caption + this.selectedChar;
+            this.label.caption = caption;
+
+            if (this.isSelected == true) {
+                if (this.position >= 0) {
+                    this.label.caption = this.label.caption.Insert(this.position, "|");
+                } else {
+                    this.label.caption += "|";
+                }
+            }
+
             this.checkSelected();
         }
 
-        private void StartKeyReceiver() {
+        private void StartInputSystem() {
             InputSystem.CharEntered += delegate (Object o, CharacterEventArgs e) {
                 if (this.isSelected == false) {
                     return;
                 }
 
-                if (e.Character == '\b' && this.text.Length > 0) {
-                    this.text = this.text.Substring(0, this.text.Length - 1);
+                if (e.Character == '\b' && this.text.Length > 0 && this.position > 0) {
+                    this.position--;
+                    this.text = this.text.Remove(this.position, 1);
                     return;
                 }
 
@@ -93,10 +93,27 @@ namespace SharpDXEngine.Components {
                     return;
                 }
 
-                this.text += e.Character;
+                this.text = this.text.Insert(this.position, e.Character.ToString());
+                this.position++;
+            };
+
+            InputSystem.KeyDown += delegate (Object o, KeyEventArgs e) {
+                switch (e.KeyCode) {
+                    case Keys.Left:
+                        if (this.position >= 1) {
+                            this.position--;
+                        }
+                        break;
+
+                    case Keys.Right:
+                        if (this.position < this.text.Length) {
+                            this.position++;
+                        }
+                        break;
+                }
             };
         }
-
+         
         private void checkSelected() {
             if (Mouse.GetState().LeftButton != ButtonState.Pressed) {
                 return;
