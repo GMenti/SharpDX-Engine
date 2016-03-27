@@ -64,8 +64,6 @@ namespace SharpDXEngine.Components {
                     this.label.caption += "|";
                 }
             }
-
-            this.checkSelected();
         }
 
         private void StartInputSystem() {
@@ -112,15 +110,11 @@ namespace SharpDXEngine.Components {
                         break;
                 }
             };
-        }
-         
-        private void checkSelected() {
-            if (Mouse.GetState().LeftButton != ButtonState.Pressed) {
-                return;
-            }
 
-            Rectangle position = this.picture.getRectangle();
-            this.isSelected = position.Contains(Mouse.GetState().Position);
+            InputSystem.MouseUp += delegate (Object o, MouseEventArgs e) {
+                Rectangle position = this.picture.getRectangle();
+                this.isSelected = position.Contains(e.Location);
+            };
         }
 
         private Boolean checkFull() {
