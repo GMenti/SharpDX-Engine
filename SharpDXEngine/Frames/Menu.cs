@@ -23,7 +23,7 @@ namespace SharpDXEngine.Frames
             menu = new Picture(new Vector2(0, 0));
 
             txtLogin = new TextBox(new Vector2(334, 341), 26) {
-                isSelected = true
+                selected = true
             };
 
             txtPassword = new TextBox(new Vector2(333, 367), 26) {
@@ -35,12 +35,12 @@ namespace SharpDXEngine.Frames
                     return;
                 }
 
-                if (txtLogin.isSelected) {
-                    txtLogin.isSelected = false;
-                    txtPassword.isSelected = true;
+                if (txtLogin.selected) {
+                    txtLogin.selected = false;
+                    txtPassword.selected = true;
                 } else {
-                    txtLogin.isSelected = true;
-                    txtPassword.isSelected = false;
+                    txtLogin.selected = true;
+                    txtPassword.selected = false;
                 }
             };
         }

@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Libraries\EKeyboard.cs" />
     <Compile Include="Utilities\FPS.cs" />
+    <Compile Include="Utilities\Helpers\StringHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

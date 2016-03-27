@@ -6,18 +6,42 @@ using SharpDXEngine.Libraries;
 using MonoGame.Extended.Timers;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework.Input;
+using SharpDXEngine.Utilities.Helpers;
 
 namespace SharpDXEngine.Components {
     class TextBox
     {
         private Picture picture;
         private Label label;
-
-        private string text;
         private int maxLength;
-        public Boolean isSelected;
         public Boolean isPassword;
         private int position;
+
+        private string _text;
+        public string text {
+            get {
+                if (this.isPassword) {
+                    return StringHelper.convertToPassword(this._text);
+                }
+                return this._text;
+            }
+            set {
+                this._text = value;
+            }
+        }
+
+        private Boolean _isSelected;
+        public Boolean selected {
+            get {
+                return this._isSelected;
+            }
+            set {
+                this._isSelected = value;
+                if (value == false) {
+                    this.label.caption = this.text.Replace("|", "");
+                }
+            }
+        }
 
         public TextBox(Vector2 position, int maxLength)
         {
@@ -30,9 +54,6 @@ namespace SharpDXEngine.Components {
             
             this.text = "";
             this.maxLength = maxLength;
-            this.isSelected = false;
-            this.position = 0;
-
             this.StartInputSystem();
         }
 
@@ -50,25 +71,16 @@ namespace SharpDXEngine.Components {
 
         public void Update(GameTime gameTime)
         {
-            string caption = this.text;
-            if (this.isPassword) {
-                caption = new Regex("\\S").Replace(caption, "*");
+            if (this.selected == false) {
+                return;
             }
 
-            this.label.caption = caption;
-
-            if (this.isSelected == true) {
-                if (this.position >= 0) {
-                    this.label.caption = this.label.caption.Insert(this.position, "|");
-                } else {
-                    this.label.caption += "|";
-                }
-            }
+            this.label.caption = this.text.Insert(this.position, "|");
         }
 
         private void StartInputSystem() {
             InputSystem.CharEntered += delegate (Object o, CharacterEventArgs e) {
-                if (this.isSelected == false) {
+                if (this.selected == false) {
                     return;
                 }
 
@@ -96,6 +108,10 @@ namespace SharpDXEngine.Components {
             };
 
             InputSystem.KeyDown += delegate (Object o, KeyEventArgs e) {
+                if (this.selected == false) {
+                    return;
+                }
+
                 switch (e.KeyCode) {
                     case Keys.Left:
                         if (this.position >= 1) {
@@ -113,7 +129,7 @@ namespace SharpDXEngine.Components {
 
             InputSystem.MouseUp += delegate (Object o, MouseEventArgs e) {
                 Rectangle position = this.picture.getRectangle();
-                this.isSelected = position.Contains(e.Location);
+                this.selected = position.Contains(e.Location);
             };
         }
 
@@ -124,8 +140,6 @@ namespace SharpDXEngine.Components {
 
             return true;
         }
-
-
 
     }
 }
