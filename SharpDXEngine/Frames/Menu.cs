@@ -11,7 +11,7 @@ namespace SharpDXEngine.Frames
 {
     class Menu
     {
-        private Picture background;
+        private AnimPicture background;
         private Picture menu;
 
         private TextBox txtLogin;
@@ -19,11 +19,14 @@ namespace SharpDXEngine.Frames
 
         public Menu()
         {
-            background = new Picture(new Vector2(0, 0));
-            menu = new Picture(new Vector2(0, 0));
+            background = new AnimPicture(new Vector2(0, 0));
+
+            menu = new Picture(new Vector2(0, 0)) {
+                color = Color.Green
+            };
 
             txtLogin = new TextBox(new Vector2(334, 341), 26) {
-                selected = true
+                isSelected = true
             };
 
             txtPassword = new TextBox(new Vector2(333, 367), 26) {
@@ -35,12 +38,12 @@ namespace SharpDXEngine.Frames
                     return;
                 }
 
-                if (txtLogin.selected) {
-                    txtLogin.selected = false;
-                    txtPassword.selected = true;
+                if (txtLogin.isSelected) {
+                    txtLogin.isSelected = false;
+                    txtPassword.isSelected = true;
                 } else {
-                    txtLogin.selected = true;
-                    txtPassword.selected = false;
+                    txtLogin.isSelected = true;
+                    txtPassword.isSelected = false;
                 }
             };
         }
@@ -51,8 +54,12 @@ namespace SharpDXEngine.Frames
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
 
-            background.Load(content, "GUI/Menu/background");
-            menu.Load(content, "GUI/Menu/menu");
+            background.Load(content, "GUI/Menu/palletTown");
+            Random random = new Random();
+            background.spriteOrigin.X = random.Next(0, background.texture.Width - 800);
+            background.spriteOrigin.Y = random.Next(0, background.texture.Height - 600);
+
+            menu.Load(content, "GUI/Menu/buttons");
 
             txtLogin.Load(
                 content, 
@@ -71,6 +78,7 @@ namespace SharpDXEngine.Frames
         {
             txtLogin.Update(gameTime);
             txtPassword.Update(gameTime);
+            background.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)

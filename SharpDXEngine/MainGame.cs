@@ -94,7 +94,7 @@ namespace SharpDXEngine {
         protected override void Draw(GameTime gameTime)
         {
             MainGame.totalTime = gameTime.TotalGameTime;
-            GraphicsDevice.Clear(Color.Gray);
+            GraphicsDevice.Clear(Color.Black);
             
             spriteBatch.Begin();
             this.menu.Draw(spriteBatch);
