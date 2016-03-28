@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDXEngine.Utilities;
 using SharpDXEngine.Components;
 using SharpDXEngine.Libraries;
-using SharpDXEngine.Frames;
+using SharpDXEngine.Frames.Menu;
 using System;
 
 namespace SharpDXEngine {
@@ -27,9 +27,9 @@ namespace SharpDXEngine {
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this) {
-                PreferredBackBufferWidth = 800,
-                PreferredBackBufferHeight = 600,
-                SynchronizeWithVerticalRetrace = false,
+                PreferredBackBufferWidth = Config.GAME_WIDTH,
+                PreferredBackBufferHeight = Config.GAME_HEIGHT,
+                SynchronizeWithVerticalRetrace = true,
                 IsFullScreen = false
             };
             graphics.ApplyChanges();

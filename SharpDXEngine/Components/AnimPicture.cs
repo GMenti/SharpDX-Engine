@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using MonoGame.Extended.Timers;
+using SharpDXEngine.Utilities;
 using System;
 
 namespace SharpDXEngine.Components
@@ -13,9 +14,9 @@ namespace SharpDXEngine.Components
 
         public AnimPicture(Vector2 position) : base(position)
         {
-            this.animTimer = new ContinuousClock(new TimeSpan(0, 0, 0, 0, 20));
+            this.animTimer = new ContinuousClock(new TimeSpan(0, 0, 0, 0, 16));
             this.animTimer.Tick += delegate (object sender, EventArgs e) {
-                if (this.spriteOrigin.X + 800 == this.texture.Width) {
+                if (this.spriteOrigin.X + Config.GAME_WIDTH == this.texture.Width) {
                     this.decrementX = true;
                 }
 
@@ -23,7 +24,7 @@ namespace SharpDXEngine.Components
                     this.decrementX = false;
                 }
 
-                if (this.spriteOrigin.Y + 600 == this.texture.Height) {
+                if (this.spriteOrigin.Y + Config.GAME_HEIGHT == this.texture.Height) {
                     this.decrementY = true;
                 }
 
@@ -32,15 +33,15 @@ namespace SharpDXEngine.Components
                 }
 
                 if (decrementY) {
-                    this.spriteOrigin.Y--;
+                    this.spriteOrigin.Y -= 1;
                 } else {
-                    this.spriteOrigin.Y++;
+                    this.spriteOrigin.Y += 1;
                 }
 
                 if (decrementX) {
-                    this.spriteOrigin.X--;
+                    this.spriteOrigin.X -= 1;
                 } else {
-                    this.spriteOrigin.X++;
+                    this.spriteOrigin.X += 1;
                 }
             };
             this.animTimer.Start();

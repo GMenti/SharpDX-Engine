@@ -6,32 +6,39 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input;
 using SharpDXEngine.Libraries;
 using System;
+using SharpDXEngine.Utilities;
+using SharpDXEngine.Utilities.Helpers;
 
-namespace SharpDXEngine.Frames
+namespace SharpDXEngine.Frames.Menu
 {
-    class Menu
+    class Menu : MenuController
     {
         private AnimPicture background;
-        private Picture menu;
+        private Picture logo;
+        private Picture login;
 
         private TextBox txtLogin;
         private TextBox txtPassword;
+
+        private LabelButton btnLogin;
 
         public Menu()
         {
             background = new AnimPicture(new Vector2(0, 0));
 
-            menu = new Picture(new Vector2(0, 0)) {
-                color = Color.Green
-            };
+            logo = new Picture(new Vector2(NumberHelper.getCenterX(Config.GAME_WIDTH, 500), 60));
 
-            txtLogin = new TextBox(new Vector2(334, 341), 26) {
+            login = new Picture(new Vector2(NumberHelper.getCenterX(Config.GAME_WIDTH, 276), 300));
+
+            txtLogin = new TextBox(new Vector2(290, 368), 26) {
                 isSelected = true
             };
 
-            txtPassword = new TextBox(new Vector2(333, 367), 26) {
+            txtPassword = new TextBox(new Vector2(290, 408), 26) {
                 isPassword = true
             };
+
+            btnLogin = new LabelButton("Entrar", Color.White, new Vector2(290, 428));
 
             InputSystem.CharEntered += delegate (Object o, CharacterEventArgs e) {
                 if (e.Character != '\t') {
@@ -55,11 +62,11 @@ namespace SharpDXEngine.Frames
             MediaPlayer.IsRepeating = true;
 
             background.Load(content, "GUI/Menu/palletTown");
-            Random random = new Random();
-            background.spriteOrigin.X = random.Next(0, background.texture.Width - 800);
-            background.spriteOrigin.Y = random.Next(0, background.texture.Height - 600);
+            background.spriteOrigin.X = NumberHelper.getRandom(0, background.texture.Width - Config.GAME_WIDTH);
+            background.spriteOrigin.Y = NumberHelper.getRandom(0, background.texture.Height - Config.GAME_HEIGHT);
 
-            menu.Load(content, "GUI/Menu/buttons");
+            logo.Load(content, "GUI/logo");
+            login.Load(content, "GUI/Menu/login");
 
             txtLogin.Load(
                 content, 
@@ -72,22 +79,31 @@ namespace SharpDXEngine.Frames
                 "GUI/Menu/textbox",
                 "Fonts/Georgia"
             );
+
+            btnLogin.Load(content, "Fonts/Georgia");
         }
 
         public void Update(GameTime gameTime)
         {
+            background.Update(gameTime);
             txtLogin.Update(gameTime);
             txtPassword.Update(gameTime);
-            background.Update(gameTime);
+            btnLogin.Update(gameTime);
+
+            if (btnLogin.isSubmited == true) {
+                this.Login(txtLogin.text, txtPassword._text);
+                btnLogin.isSubmited = false;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             background.Draw(spriteBatch);
-            menu.Draw(spriteBatch);
-
+            logo.Draw(spriteBatch);
+            login.Draw(spriteBatch);
             txtLogin.Draw(spriteBatch);
             txtPassword.Draw(spriteBatch);
+            btnLogin.Draw(spriteBatch);
         }
     }
 }

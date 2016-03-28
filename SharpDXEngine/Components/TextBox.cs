@@ -3,21 +3,20 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Microsoft.Xna.Framework.Content;
 using SharpDXEngine.Libraries;
-using MonoGame.Extended.Timers;
-using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework.Input;
 using SharpDXEngine.Utilities.Helpers;
 
-namespace SharpDXEngine.Components {
+namespace SharpDXEngine.Components
+{
     class TextBox
     {
         private Picture picture;
         private Label label;
         private int maxLength;
         public Boolean isPassword;
-        private int position;
+        private int selectPosition;
 
-        private string _text;
+        public string _text;
         public string text {
             get {
                 if (this.isPassword) {
@@ -72,10 +71,15 @@ namespace SharpDXEngine.Components {
         public void Update(GameTime gameTime)
         {
             if (this.isSelected == false) {
+                this.label.caption = this.text;
                 return;
             }
 
-            this.label.caption = this.text.Insert(this.position, "|");
+            this.label.caption = this.text.Insert(this.selectPosition, "|");
+
+            Rectangle r = this.label.font.GetStringRectangle(this.label.caption, this.label.position);
+            this.label.position.X = this.picture.position.X + NumberHelper.getCenterX(this.picture.texture.Width, r.Width);
+            
         }
 
         private void StartInputSystem() {
@@ -84,9 +88,11 @@ namespace SharpDXEngine.Components {
                     return;
                 }
 
-                if (e.Character == '\b' && this.text.Length > 0 && this.position > 0) {
-                    this.position--;
-                    this.text = this.text.Remove(this.position, 1);
+                if (e.Character == '\b') {
+                    if (this.text.Length > 0 && this.selectPosition > 0) {
+                        this.selectPosition--;
+                        this._text = this._text.Remove(this.selectPosition, 1);
+                    }
                     return;
                 }
 
@@ -103,8 +109,8 @@ namespace SharpDXEngine.Components {
                     return;
                 }
 
-                this.text = this.text.Insert(this.position, e.Character.ToString());
-                this.position++;
+                this._text = this._text.Insert(this.selectPosition, e.Character.ToString());
+                this.selectPosition++;
             };
 
             InputSystem.KeyDown += delegate (Object o, KeyEventArgs e) {
@@ -114,14 +120,14 @@ namespace SharpDXEngine.Components {
 
                 switch (e.KeyCode) {
                     case Keys.Left:
-                        if (this.position >= 1) {
-                            this.position--;
+                        if (this.selectPosition >= 1) {
+                            this.selectPosition--;
                         }
                         break;
 
                     case Keys.Right:
-                        if (this.position < this.text.Length) {
-                            this.position++;
+                        if (this.selectPosition < this.text.Length) {
+                            this.selectPosition++;
                         }
                         break;
                 }
