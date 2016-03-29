@@ -10,9 +10,9 @@ namespace SharpDXEngine.Utilities {
         private ContinuousClock fpsTimer;
         private int fps;
 
-        public FPS(string text, Color color, Vector2 position) : base(text, color, position) {
+        public FPS() : base() {
+            this.fps = 0;
             this.fpsCounter = new FramesPerSecondCounter();
-
             this.fpsTimer = new ContinuousClock(1);
             this.fpsTimer.Tick += delegate (object sender, EventArgs e) {
                 base.caption = "FPS: " + this.fps;

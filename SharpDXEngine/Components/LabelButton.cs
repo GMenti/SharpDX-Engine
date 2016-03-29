@@ -10,7 +10,7 @@ namespace SharpDXEngine.Components
 
         public bool isSubmited;
 
-        public LabelButton(string text, Color color, Vector2 position) : base(text, color, position)
+        public LabelButton() : base()
         {
             InputSystem.MouseMove += InputSystem_MouseMove;
             InputSystem.MouseDown += InputSystem_MouseDown;

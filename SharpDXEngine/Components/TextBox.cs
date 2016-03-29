@@ -10,11 +10,30 @@ namespace SharpDXEngine.Components
 {
     class TextBox
     {
-        private Picture picture;
-        private Label label;
-        private int maxLength;
+        public Picture picture;
+        public Label label;
+        public int maxLength;
         public Boolean isPassword;
-        private int selectPosition;
+        public int selectPosition;
+        public Boolean isCentralized;
+
+        public Vector2 picturePosition {
+            get {
+                return picture.position;
+            }
+            set {
+                picture.position = value;
+            }
+        }
+
+        public Vector2 labelPosition {
+            get {
+                return label.position;
+            }
+            set {
+                label.position = value;
+            }
+        }
 
         public string _text;
         public string text {
@@ -42,17 +61,13 @@ namespace SharpDXEngine.Components
             }
         }
 
-        public TextBox(Vector2 position, int maxLength)
+        public TextBox()
         {
-            this.picture = new Picture(position);
-            this.label = new Label(
-                "", 
-                Color.White, 
-                new Vector2(position.X + 3, position.Y)
-            );
+            this.picture = new Picture();
+            this.label = new Label();
             
             this.text = "";
-            this.maxLength = maxLength;
+            this.maxLength = 0;
             this.StartInputSystem();
         }
 
@@ -76,6 +91,10 @@ namespace SharpDXEngine.Components
             }
 
             this.label.caption = this.text.Insert(this.selectPosition, "|");
+
+            if (this.isCentralized == false) {
+                return;
+            }
 
             Rectangle r = this.label.font.GetStringRectangle(this.label.caption, this.label.position);
             this.label.position.X = this.picture.position.X + NumberHelper.getCenterX(this.picture.texture.Width, r.Width);
@@ -134,7 +153,7 @@ namespace SharpDXEngine.Components
             };
 
             InputSystem.MouseUp += delegate (Object o, MouseEventArgs e) {
-                Rectangle position = this.picture.getRectangle();
+                Rectangle position = RectangleHelper.convertToRectangle(this.picturePosition, this.picture.texture.Width, this.picture.texture.Height);
                 this.isSelected = position.Contains(e.Location);
             };
         }

@@ -14,7 +14,10 @@ namespace SharpDXEngine.Components {
 
         public Cursor()
         {
-            this.label = new Label("", Color.Yellow, new Vector2(5, 20));
+            this.label = new Label() {
+                color = Color.Yellow,
+                position = new Vector2(5, 20)
+            };
         }
 
         public void Load(ContentManager content)

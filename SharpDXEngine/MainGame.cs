@@ -39,7 +39,11 @@ namespace SharpDXEngine {
 
             this.menu = new Menu();
             this.cursor = new Cursor();
-            this.fpsDrawning = new FPS("", Color.Yellow, new Vector2(5, 5));
+            this.fpsDrawning = new FPS() {
+                caption = "FPS: 0",
+                color = Color.Yellow,
+                position = new Vector2(5, 5)
+            };
         }
 
         /// <summary>

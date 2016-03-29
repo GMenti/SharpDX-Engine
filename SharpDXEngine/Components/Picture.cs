@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SharpDXEngine.Libraries;
+using SharpDXEngine.Utilities.Helpers;
 
 namespace SharpDXEngine.Components {
     class Picture
@@ -13,9 +14,9 @@ namespace SharpDXEngine.Components {
         public Vector2 spriteOrigin;
         public Color color;
 
-        public Picture(Vector2 position)
+        public Picture()
         {
-            this.position = position;
+            this.position = Vector2.Zero;
             this.rotation = 0f;
             this.color = Color.White;
             this.expandFactor = new Vector2(1f, 1f);
@@ -39,15 +40,6 @@ namespace SharpDXEngine.Components {
                 expandFactor,
                 SpriteEffects.None,
                 0f
-            );
-        }
-
-        public Rectangle getRectangle() {
-            return new Rectangle(
-                (int)this.position.X,
-                (int)this.position.Y,
-                this.texture.Width,
-                this.texture.Height
             );
         }
     }

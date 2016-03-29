@@ -12,11 +12,11 @@ namespace SharpDXEngine.Components {
         public Color color;
         public Vector2 position;
 
-        public Label(string text, Color color, Vector2 position)
+        public Label()
         {
-            this.caption = text;
-            this.color = color;
-            this.position = position;
+            this.caption = "";
+            this.color = Color.White;
+            this.position = Vector2.Zero;
         }
 
         public void Load(ContentManager content, string filePath)

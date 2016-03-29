@@ -59,6 +59,7 @@
     <Compile Include="Components\Label.cs" />
     <Compile Include="Components\AnimPicture.cs" />
     <Compile Include="Components\Picture.cs" />
+    <Compile Include="Frames\Menu\Login\LoginPanel.cs" />
     <Compile Include="Frames\Menu\Menu.cs" />
     <Compile Include="Frames\Menu\MenuController.cs" />
     <Compile Include="MainGame.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Utilities\Config.cs" />
     <Compile Include="Utilities\FPS.cs" />
     <Compile Include="Utilities\Helpers\NumberHelper.cs" />
+    <Compile Include="Utilities\Helpers\RectangleHelper.cs" />
     <Compile Include="Utilities\Helpers\StringHelper.cs" />
   </ItemGroup>
   <ItemGroup>
