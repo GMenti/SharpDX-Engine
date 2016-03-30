@@ -7,11 +7,14 @@ using SharpDXEngine.Components;
 using SharpDXEngine.Libraries;
 using SharpDXEngine.Frames.Menu;
 using System;
+using LetsCreateNetworkGame;
 
 namespace SharpDXEngine {
 
     public class MainGame : Game
     {
+        private NetworkConnection _networkConnection;
+
         public SpriteBatch spriteBatch;
         public static TimeSpan totalTime;
 
@@ -44,6 +47,8 @@ namespace SharpDXEngine {
                 color = Color.Yellow,
                 position = new Vector2(5, 5)
             };
+
+            _networkConnection = new NetworkConnection();
         }
 
         /// <summary>
@@ -52,6 +57,7 @@ namespace SharpDXEngine {
         protected override void Initialize()
         {
             InputSystem.Initialize(this.Window);
+            _networkConnection.Start();
             base.Initialize();
         }
 

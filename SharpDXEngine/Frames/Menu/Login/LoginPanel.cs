@@ -42,11 +42,11 @@ namespace SharpDXEngine.Frames.Menu.Login
             txtPassword = new TextBox() {
                 maxLength = 26,
                 picturePosition = new Vector2(
-                    this.position.X + 32,
+                    this.position.X + 28,
                     this.position.Y + 106
                 ),
                 labelPosition = new Vector2(
-                    this.position.X + 28,
+                    this.position.X + 32,
                     this.position.Y + 106
                 ),
                 isCentralized = true,
