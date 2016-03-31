@@ -69,6 +69,7 @@
     <Compile Include="Libraries\EKeyboard.cs" />
     <Compile Include="Utilities\Config.cs" />
     <Compile Include="Utilities\FPS.cs" />
+    <Compile Include="Utilities\Helpers\Debug.cs" />
     <Compile Include="Utilities\Helpers\NumberHelper.cs" />
     <Compile Include="Utilities\Helpers\RectangleHelper.cs" />
     <Compile Include="Utilities\Helpers\StringHelper.cs" />

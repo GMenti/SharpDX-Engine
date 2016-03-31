@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lidgren.Network;
+using SharpDXEngine.Libraries;
 
 namespace SharpDXEngine.Frames.Menu
 {
@@ -10,10 +7,9 @@ namespace SharpDXEngine.Frames.Menu
     {
         public void Login(string user, string password)
         {
-            System.Windows.Forms.MessageBox.Show(
-                "Login: " + user +
-                "\nSenha: " + password
-            );
+            NetOutgoingMessage message = NetworkConnection.client.CreateMessage();
+            message.Write(user + " - " + password);
+            NetworkConnection.client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
         }
     }
 }

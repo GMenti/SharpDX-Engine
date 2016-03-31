@@ -1,61 +1,50 @@
-﻿//------------------------------------------------------
-// 
-// Copyright - (c) - 2014 - Mille Boström 
-//
-// Youtube channel - https://www.youtube.com/user/Maloooon
-//------------------------------------------------------
-using System;
+﻿using System;
 using Lidgren.Network;
-using Network;
+using SharpDXEngine.Utilities.Helpers;
 
-namespace LetsCreateNetworkGame
+namespace SharpDXEngine.Libraries
 {
-    class NetworkConnection
+    static class NetworkConnection
     {
-        private NetClient _client;
 
-        public bool Start()
+        public static NetClient client;
+
+        public static void Start()
         {
-            var loginInformation = new LoginInformation() { name = "RandomName" };
-            _client = new NetClient(new NetPeerConfiguration("networkGame"));
-            _client.Start();
-            var outmsg = _client.CreateMessage();
-            outmsg.Write((byte)PacketType.Login);
-            outmsg.WriteAllProperties(loginInformation);
-            _client.Connect("localhost", 14241, outmsg);
-            return EsablishInfo();
+            var config = new NetPeerConfiguration("teste");
+            client = new NetClient(config);
+            client.Start();
+            client.Connect(host: "127.0.0.1", port: 12345);
         }
 
-        private bool EsablishInfo()
+        public static void ReceiveConnections()
         {
-            var time = DateTime.Now;
-            NetIncomingMessage inc;
-            while (true) {
-                if (DateTime.Now.Subtract(time).Seconds > 5) {
-                    return false;
-                }
+            NetIncomingMessage incMessage;
 
-                if ((inc = _client.ReadMessage()) == null)
-                    continue;
+            while ((incMessage = client.ReadMessage()) != null) {
 
-                switch (inc.MessageType) {
+                switch (incMessage.MessageType) {
                     case NetIncomingMessageType.Data:
-                        var data = inc.ReadByte();
-                        if (data == (byte)PacketType.Login) {
-                            var accepted = inc.ReadBoolean();
-                            if (accepted) {
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        } else {
-                            return false;
-                        }
+                        string data = incMessage.ReadString();
+                        Debug.msgBox(incMessage.MessageType + ": " + data);
+                        break;
+
+                    case NetIncomingMessageType.StatusChanged:
+                        Debug.msgBox(incMessage.MessageType + ": " + incMessage.SenderConnection.Status.ToString());
+                        break;
+
+                    case NetIncomingMessageType.DebugMessage:
+                        Console.WriteLine(incMessage.MessageType + ": " + incMessage.ReadString());
+                        break;
+
+                    default:
+                        Console.WriteLine("Tipo inválido: " + incMessage.MessageType);
+                        break;
                 }
+
             }
-
-
-
         }
+
     }
+
 }

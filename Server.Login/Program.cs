@@ -1,77 +1,67 @@
-﻿//------------------------------------------------------
-// 
-// Copyright - (c) - 2014 - Mille Boström 
-//
-// Youtube channel - https://www.youtube.com/user/Maloooon
-//------------------------------------------------------
+﻿using Lidgren.Network;
 using System;
-using Lidgren.Network;
-using Network;
 
-namespace LetsCreateNetworkGame.Server
+namespace Server
 {
+
     class Program
     {
 
+        static NetServer server;
+
         static void Main(string[] args)
         {
-            var config = new NetPeerConfiguration("networkGame") { Port = 14241 };
-            config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-            var server = new NetServer(config);
-            server.Start();
-            Console.WriteLine("Server started...");
-            while (true) {
-                NetIncomingMessage inc;
-                if ((inc = server.ReadMessage()) == null)
-                    continue;
-                switch (inc.MessageType) {
-                    case NetIncomingMessageType.Error:
-                        break;
-                    case NetIncomingMessageType.StatusChanged:
-                        break;
-                    case NetIncomingMessageType.UnconnectedData:
-                        break;
-                    case NetIncomingMessageType.ConnectionApproval:
-                        Console.WriteLine("New connection...");
-                        var data = inc.ReadByte();
-                        if (data == (byte)PacketType.Login) {
-                            Console.WriteLine("..connection accpeted.");
-                            var loginInformation = new LoginInformation();
-                            inc.ReadAllProperties(loginInformation);
-                            inc.SenderConnection.Approve();
+            Start();
 
-                            var outmsg = server.CreateMessage();
-                            outmsg.Write((byte)PacketType.Login);
-                            outmsg.Write(true);
-                            server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
-                        } else {
-                            inc.SenderConnection.Deny("Didn't send correct information.");
-                        }
-                        break;
-                    case NetIncomingMessageType.Data:
-                        break;
-                    case NetIncomingMessageType.Receipt:
-                        break;
-                    case NetIncomingMessageType.DiscoveryRequest:
-                        break;
-                    case NetIncomingMessageType.DiscoveryResponse:
-                        break;
-                    case NetIncomingMessageType.VerboseDebugMessage:
-                        break;
-                    case NetIncomingMessageType.DebugMessage:
-                        break;
-                    case NetIncomingMessageType.WarningMessage:
-                        break;
-                    case NetIncomingMessageType.ErrorMessage:
-                        break;
-                    case NetIncomingMessageType.NatIntroductionSuccess:
-                        break;
-                    case NetIncomingMessageType.ConnectionLatencyUpdated:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+            while (true) {
+                ReceiveConnections();
             }
         }
+
+        static void Start()
+        {
+            var config = new NetPeerConfiguration("teste") {
+                Port = 12345
+            };
+
+            server = new NetServer(config);
+            server.Start();
+
+            Console.WriteLine("Server iniciado...");
+        }
+
+        static void ReceiveConnections()
+        {
+            NetIncomingMessage incMessage;
+
+            while ((incMessage = server.ReadMessage()) != null) {
+
+                switch (incMessage.MessageType) {
+                    case NetIncomingMessageType.Data:
+                        string data = incMessage.ReadString();
+                        Console.WriteLine(incMessage.MessageType + ": " + data);
+
+                        NetOutgoingMessage message = server.CreateMessage();
+                        message.Write("Recebido");
+                        server.SendMessage(message, incMessage.SenderConnection, NetDeliveryMethod.ReliableOrdered);
+                        break;
+
+                    case NetIncomingMessageType.StatusChanged:
+                        Console.WriteLine(incMessage.MessageType + ": " + incMessage.SenderConnection.Status.ToString());
+                        break;
+
+                    case NetIncomingMessageType.DebugMessage:
+                        Console.WriteLine(incMessage.MessageType + ": " + incMessage.ReadString());
+                        break;
+
+                    default:
+                        Console.WriteLine("Tipo inválido: " + incMessage.MessageType);
+                        break;
+                }
+
+            }
+        }
+
     }
+
 }

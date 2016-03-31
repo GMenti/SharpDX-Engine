@@ -7,14 +7,11 @@ using SharpDXEngine.Components;
 using SharpDXEngine.Libraries;
 using SharpDXEngine.Frames.Menu;
 using System;
-using LetsCreateNetworkGame;
 
 namespace SharpDXEngine {
 
     public class MainGame : Game
     {
-        private NetworkConnection _networkConnection;
-
         public SpriteBatch spriteBatch;
         public static TimeSpan totalTime;
 
@@ -35,6 +32,7 @@ namespace SharpDXEngine {
                 SynchronizeWithVerticalRetrace = true,
                 IsFullScreen = false
             };
+            
             graphics.ApplyChanges();
             base.IsFixedTimeStep = false;
 
@@ -48,7 +46,7 @@ namespace SharpDXEngine {
                 position = new Vector2(5, 5)
             };
 
-            _networkConnection = new NetworkConnection();
+            NetworkConnection.Start();
         }
 
         /// <summary>
@@ -57,7 +55,7 @@ namespace SharpDXEngine {
         protected override void Initialize()
         {
             InputSystem.Initialize(this.Window);
-            _networkConnection.Start();
+            
             base.Initialize();
         }
 
@@ -92,7 +90,8 @@ namespace SharpDXEngine {
 
             this.menu.Update(gameTime);
             this.cursor.Update();
-            
+
+            NetworkConnection.ReceiveConnections();
             base.Update(gameTime);
         }
 
