@@ -14,6 +14,7 @@ namespace SharpDXEngine.Frames.Menu.Login
         private TextBox txtLogin;
         private TextBox txtPassword;
         private LabelButton btnLogin;
+        static public Label lblStatus;
 
         private Vector2 position;
 
@@ -59,7 +60,16 @@ namespace SharpDXEngine.Frames.Menu.Login
                 position = new Vector2(
                     this.position.X + 28,
                     this.position.Y + 165
-                ),
+                )
+            };
+
+            lblStatus = new Label() {
+                caption = "",
+                color = Color.White,
+                position = new Vector2(
+                    this.position.X + 58,
+                    this.position.Y + 135
+                )
             };
 
             InputSystem.CharEntered += InputSystem_CharEntered;
@@ -82,6 +92,7 @@ namespace SharpDXEngine.Frames.Menu.Login
             );
 
             btnLogin.Load(content, "Fonts/Georgia");
+            lblStatus.Load(content, "Fonts/Georgia");
         }
 
         public void Update(GameTime gameTime)
@@ -89,7 +100,7 @@ namespace SharpDXEngine.Frames.Menu.Login
             txtLogin.Update(gameTime);
             txtPassword.Update(gameTime);
             btnLogin.Update(gameTime);
-            
+
             if (btnLogin.isSubmited == true) {
                 this.Login(txtLogin.text, txtPassword._text);
                 btnLogin.isSubmited = false;
@@ -102,6 +113,7 @@ namespace SharpDXEngine.Frames.Menu.Login
             txtLogin.Draw(spriteBatch);
             txtPassword.Draw(spriteBatch);
             btnLogin.Draw(spriteBatch);
+            lblStatus.Draw(spriteBatch);
         }
 
         private void InputSystem_CharEntered(object sender, CharacterEventArgs e)

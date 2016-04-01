@@ -29,7 +29,7 @@ namespace SharpDXEngine {
             graphics = new GraphicsDeviceManager(this) {
                 PreferredBackBufferWidth = Config.GAME_WIDTH,
                 PreferredBackBufferHeight = Config.GAME_HEIGHT,
-                SynchronizeWithVerticalRetrace = true,
+                SynchronizeWithVerticalRetrace = false,
                 IsFullScreen = false
             };
             
@@ -91,8 +91,9 @@ namespace SharpDXEngine {
             this.menu.Update(gameTime);
             this.cursor.Update();
 
-            NetworkConnection.ReceiveConnections();
             base.Update(gameTime);
+
+            NetworkConnection.ReceiveConnections();
         }
 
         /// <summary>

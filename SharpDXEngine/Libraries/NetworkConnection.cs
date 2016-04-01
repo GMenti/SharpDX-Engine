@@ -1,6 +1,10 @@
 ﻿using System;
 using Lidgren.Network;
 using SharpDXEngine.Utilities.Helpers;
+using System.Threading;
+using Network;
+using SharpDXEngine.Frames.Menu.Login;
+using Microsoft.Xna.Framework;
 
 namespace SharpDXEngine.Libraries
 {
@@ -11,38 +15,62 @@ namespace SharpDXEngine.Libraries
 
         public static void Start()
         {
-            var config = new NetPeerConfiguration("teste");
+            NetPeerConfiguration config = new NetPeerConfiguration("teste");
             client = new NetClient(config);
             client.Start();
+        }
+
+        public static void Connect()
+        {
             client.Connect(host: "127.0.0.1", port: 12345);
         }
 
         public static void ReceiveConnections()
         {
-            NetIncomingMessage incMessage;
+            LoginPanel.lblStatus.caption = client.ConnectionStatus.ToString();
 
-            while ((incMessage = client.ReadMessage()) != null) {
+            switch (client.ConnectionStatus) {
+                case NetConnectionStatus.None:
+                case NetConnectionStatus.Connected:
+                    ReceivePackets();
+                    break;
 
-                switch (incMessage.MessageType) {
-                    case NetIncomingMessageType.Data:
-                        string data = incMessage.ReadString();
-                        Debug.msgBox(incMessage.MessageType + ": " + data);
-                        break;
-
-                    case NetIncomingMessageType.StatusChanged:
-                        Debug.msgBox(incMessage.MessageType + ": " + incMessage.SenderConnection.Status.ToString());
-                        break;
-
-                    case NetIncomingMessageType.DebugMessage:
-                        Console.WriteLine(incMessage.MessageType + ": " + incMessage.ReadString());
-                        break;
-
-                    default:
-                        Console.WriteLine("Tipo inválido: " + incMessage.MessageType);
-                        break;
-                }
-
+                case NetConnectionStatus.Disconnected:
+                    Connect();
+                    break;
             }
+        }
+
+        private static void ReceivePackets()
+        {
+            NetIncomingMessage incMessage = client.ReadMessage();
+
+            if (incMessage == null) {
+                return;
+            }
+
+            switch (incMessage.MessageType) {
+                case NetIncomingMessageType.Data:
+                    switch (incMessage.ReadByte()) {
+                        case (byte)PacketType.Login:
+                            LoginPanel.lblStatus.caption = incMessage.ReadString();
+                            LoginPanel.lblStatus.color = Color.Green;
+                            break;
+                    }
+                    break;
+
+                case NetIncomingMessageType.StatusChanged:
+                    NetConnectionStatus status= (NetConnectionStatus)incMessage.ReadByte();
+                    Debug.msgBox(status.ToString());
+                    break;
+            }
+
+            client.Recycle(incMessage);
+        }
+
+        public static bool IsConnected()
+        {
+            return (client.ConnectionStatus == NetConnectionStatus.Connected);
         }
 
     }
