@@ -1,9 +1,6 @@
 ﻿using Lidgren.Network;
 using Network;
-using SharpDXEngine.Frames.Menu.Login;
-using SharpDXEngine.Libraries;
-using SharpDXEngine.Utilities.Helpers;
-using System;
+using Network.Library.Packets;
 
 namespace SharpDXEngine.Frames.Menu
 {
@@ -11,9 +8,12 @@ namespace SharpDXEngine.Frames.Menu
     {
         public void Login(string user, string password)
         {
-            NetOutgoingMessage message = NetworkConnection.client.CreateMessage();
-            message.Write((byte)PacketType.Login);
-            NetworkConnection.client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
+            LoginPacket packet = new LoginPacket() {
+                login = user,
+                password = password
+            };
+
+            Network.SendLogin(packet);
         }
 
     }

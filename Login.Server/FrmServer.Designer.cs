@@ -1,6 +1,6 @@
 ﻿namespace Login.Server
 {
-    partial class FormServer
+    partial class FrmServer
     {
         /// <summary>
         /// Required designer variable.
@@ -30,17 +30,25 @@
             this.txtLog = new System.Windows.Forms.TextBox();
             this.btnOn = new System.Windows.Forms.Button();
             this.btnOff = new System.Windows.Forms.Button();
+            this.lstPlayers = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // txtLog
             // 
-            this.txtLog.AcceptsReturn = true;
+            this.txtLog.CausesValidation = false;
+            this.txtLog.Cursor = System.Windows.Forms.Cursors.Default;
+            this.txtLog.HideSelection = false;
             this.txtLog.Location = new System.Drawing.Point(12, 12);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLog.ShortcutsEnabled = false;
             this.txtLog.Size = new System.Drawing.Size(317, 216);
             this.txtLog.TabIndex = 0;
+            this.txtLog.TabStop = false;
+            this.txtLog.WordWrap = false;
+            this.txtLog.TextChanged += new System.EventHandler(this.txtLog_TextChanged);
             // 
             // btnOn
             // 
@@ -63,15 +71,25 @@
             this.btnOff.UseVisualStyleBackColor = true;
             this.btnOff.Click += new System.EventHandler(this.btnOff_click);
             // 
-            // Form1
+            // lstPlayers
+            // 
+            this.lstPlayers.FormattingEnabled = true;
+            this.lstPlayers.Location = new System.Drawing.Point(335, 12);
+            this.lstPlayers.Name = "lstPlayers";
+            this.lstPlayers.Size = new System.Drawing.Size(144, 212);
+            this.lstPlayers.TabIndex = 3;
+            this.lstPlayers.SelectedIndexChanged += new System.EventHandler(this.lstPlayers_SelectedIndexChanged);
+            // 
+            // FrmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(339, 272);
+            this.ClientSize = new System.Drawing.Size(747, 272);
+            this.Controls.Add(this.lstPlayers);
             this.Controls.Add(this.btnOff);
             this.Controls.Add(this.btnOn);
             this.Controls.Add(this.txtLog);
-            this.Name = "Form1";
+            this.Name = "FrmServer";
             this.Text = "Login Server";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -80,10 +98,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.Button btnOn;
         private System.Windows.Forms.Button btnOff;
+        public System.Windows.Forms.TextBox txtLog;
+        public System.Windows.Forms.ListBox lstPlayers;
     }
 }
 

@@ -5,15 +5,16 @@ namespace Login.Server
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+
+        public static FrmServer frmServer;
+
         [STAThread]
         static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormServer());
+        {  
+            using (frmServer = new FrmServer()) {
+                Application.EnableVisualStyles();
+                Application.Run(frmServer);
+            }
         }
     }
 }

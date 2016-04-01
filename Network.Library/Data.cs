@@ -11,6 +11,7 @@ namespace Network
 
     public enum PacketType
     {
-        Login
+        Login,
+        MenuError
     }
 }

@@ -49,19 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormServer\FormServer.Connection.cs">
+    <Compile Include="Network\Network.cs" />
+    <Compile Include="FrmServer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormServer\FormServer.cs">
-      <SubType>Form</SubType>
+    <Compile Include="FrmServer.Designer.cs">
+      <DependentUpon>FrmServer.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormServer\FormServer.Designer.cs">
-      <DependentUpon>FormServer.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Network\Network.Forwarder.cs" />
+    <Compile Include="Network\Network.Receiver.cs" />
+    <Compile Include="Network\Network.Sender.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormServer\FormServer.resx">
-      <DependentUpon>FormServer.cs</DependentUpon>
+    <EmbeddedResource Include="FrmServer.resx">
+      <DependentUpon>FrmServer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -71,9 +72,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="FormServer\FormServer.Log.cs">
-      <SubType>Form</SubType>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

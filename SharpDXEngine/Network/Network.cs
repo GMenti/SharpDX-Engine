@@ -6,11 +6,10 @@ using Network;
 using SharpDXEngine.Frames.Menu.Login;
 using Microsoft.Xna.Framework;
 
-namespace SharpDXEngine.Libraries
+namespace SharpDXEngine
 {
-    static class NetworkConnection
+    public static partial class Network
     {
-
         public static NetClient client;
 
         public static void Start()
@@ -51,14 +50,9 @@ namespace SharpDXEngine.Libraries
 
             switch (incMessage.MessageType) {
                 case NetIncomingMessageType.Data:
-                    switch (incMessage.ReadByte()) {
-                        case (byte)PacketType.Login:
-                            LoginPanel.lblStatus.caption = incMessage.ReadString();
-                            LoginPanel.lblStatus.color = Color.Green;
-                            break;
-                    }
+                    ReceivePacket(incMessage);
                     break;
-
+                
                 case NetIncomingMessageType.StatusChanged:
                     NetConnectionStatus status= (NetConnectionStatus)incMessage.ReadByte();
                     Debug.msgBox(status.ToString());

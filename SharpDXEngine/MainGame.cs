@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDXEngine.Utilities;
 using SharpDXEngine.Components;
-using SharpDXEngine.Libraries;
 using SharpDXEngine.Frames.Menu;
 using System;
+using SharpDXEngine.Libraries;
 
 namespace SharpDXEngine {
 
@@ -46,7 +46,7 @@ namespace SharpDXEngine {
                 position = new Vector2(5, 5)
             };
 
-            NetworkConnection.Start();
+            Network.Start();
         }
 
         /// <summary>
@@ -75,6 +75,7 @@ namespace SharpDXEngine {
         /// </summary> 
         protected override void UnloadContent()
         {
+            Network.client.Disconnect("Jogo encerrado!");
             this.Content.Dispose();
         }
 
@@ -93,7 +94,7 @@ namespace SharpDXEngine {
 
             base.Update(gameTime);
 
-            NetworkConnection.ReceiveConnections();
+            Network.ReceiveConnections();
         }
 
         /// <summary>
