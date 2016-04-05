@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Media;
 using SharpDXEngine.Utilities;
 using SharpDXEngine.Utilities.Helpers;
 using SharpDXEngine.Frames.Menu.Login;
+using SharpDXEngine.Frames.Menu.Register;
 
 namespace SharpDXEngine.Frames.Menu
 {
@@ -13,7 +14,10 @@ namespace SharpDXEngine.Frames.Menu
     {
         private AnimPicture background;
         private Picture logo;
-        private LoginPanel loginPanel;
+
+        public static TypePanel actualPanel;
+        public static LoginPanel loginPanel;
+        private RegisterPanel registerPanel;
 
         public Menu()
         {
@@ -26,7 +30,9 @@ namespace SharpDXEngine.Frames.Menu
                 )
             };
 
+            actualPanel = TypePanel.Login;
             loginPanel = new LoginPanel();
+            registerPanel = new RegisterPanel();
         }
 
         public void Load(ContentManager content)
@@ -40,20 +46,41 @@ namespace SharpDXEngine.Frames.Menu
             background.spriteOrigin.Y = NumberHelper.getRandom(0, background.texture.Height - Config.GAME_HEIGHT);
 
             logo.Load(content, "GUI/logo");
+
             loginPanel.Load(content);
+            registerPanel.Load(content);
         }
 
         public void Update(GameTime gameTime)
         {
             background.Update(gameTime);
-            loginPanel.Update(gameTime);
+
+            switch (actualPanel) {
+                case TypePanel.Login:
+                    loginPanel.Update(gameTime);
+                    break;
+
+                case TypePanel.Register:
+                    registerPanel.Update(gameTime);
+                    break;
+            }
+            
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             background.Draw(spriteBatch);
             logo.Draw(spriteBatch);
-            loginPanel.Draw(spriteBatch);
+
+            switch (actualPanel) {
+                case TypePanel.Login:
+                    loginPanel.Draw(spriteBatch);
+                    break;
+
+                case TypePanel.Register:
+                    registerPanel.Draw(spriteBatch);
+                    break;
+            }
         }
     }
 }

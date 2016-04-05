@@ -1,5 +1,7 @@
 ﻿using Lidgren.Network;
+using Login.Server.Objects.Account;
 using Network.Library.Packets;
+using System;
 
 namespace Login.Server
 {
@@ -7,12 +9,22 @@ namespace Login.Server
     {
         public static void ReceiveLogin(NetIncomingMessage packet)
         {
-            LoginPacket loginPacket = new LoginPacket();
-            packet.ReadAllFields(loginPacket);
+            AccountData data = new AccountData();
+            packet.ReadAllFields(data);
 
-            Program.frmServer.addLog(loginPacket.login + " - " + loginPacket.password);
+            DateTime start = DateTime.Now;
 
-            SendMenuError(GetIndex(packet.SenderConnection), "Erro ao logar...");
+            Boolean finded = false;
+            foreach (Account acc in Database.accounts) {
+                if (acc.login != data.login || acc.password != data.password) {
+                    continue;
+                }
+                finded = true;
+            }
+
+            Program.frmServer.addLog("Login: " + (DateTime.Now.Millisecond - start.Millisecond));
+
+            SendMenuError(GetIndex(packet.SenderConnection), finded.ToString());
         }
 
         public static int GetIndex(NetConnection connection)

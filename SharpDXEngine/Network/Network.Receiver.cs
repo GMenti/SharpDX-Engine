@@ -1,29 +1,19 @@
 ﻿using Lidgren.Network;
 using Microsoft.Xna.Framework;
-using Network;
+using Network.Library.Packets;
 using SharpDXEngine.Frames.Menu.Login;
-using SharpDXEngine.Utilities.Helpers;
+using SharpDXEngine.Objects;
 
 namespace SharpDXEngine
 {
     public static partial class Network
     {
-
-        public static void ReceivePacket(NetIncomingMessage packet)
+        public static void ReceiveLogin(NetIncomingMessage packet)
         {
-            PacketType packetType = (PacketType) packet.ReadByte();
+            AccountData account = new AccountData();
+            packet.ReadAllFields(account);
 
-            switch (packetType) {
-                case PacketType.Login:
-                    LoginPanel.lblStatus.color = Color.Green;
-                    break;
-
-                case PacketType.MenuError:
-                    Debug.msgBox(packet.ReadString());
-                    break;
-            }
-
+            LoginPanel.lblStatus.color = Color.Green;
         }
-
     }
 }

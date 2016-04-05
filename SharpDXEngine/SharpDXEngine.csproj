@@ -61,11 +61,15 @@
     <Compile Include="Components\Picture.cs" />
     <Compile Include="Frames\Menu\Login\LoginPanel.cs" />
     <Compile Include="Frames\Menu\Menu.cs" />
+    <Compile Include="Frames\Menu\Register\RegisterPanel.cs" />
+    <Compile Include="Frames\Menu\TypePanel.cs" />
     <Compile Include="Frames\Menu\MenuController.cs" />
     <Compile Include="Network\Network.cs" />
     <Compile Include="MainGame.cs" />
+    <Compile Include="Network\Network.Forwarder.cs" />
     <Compile Include="Network\Network.Receiver.cs" />
     <Compile Include="Network\Network.Sender.cs" />
+    <Compile Include="Objects\Account.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Libraries\EKeyboard.cs" />

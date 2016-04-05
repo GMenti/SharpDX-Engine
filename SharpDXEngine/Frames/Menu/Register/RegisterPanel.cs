@@ -6,25 +6,30 @@ using SharpDXEngine.Libraries;
 using SharpDXEngine.Utilities;
 using SharpDXEngine.Utilities.Helpers;
 
-namespace SharpDXEngine.Frames.Menu.Login
+namespace SharpDXEngine.Frames.Menu.Register
 {
-    class LoginPanel : MenuController
+    class RegisterPanel : MenuController
     {
+    
+
         private Picture login;
         private TextBox txtLogin;
         private TextBox txtPassword;
-        private LabelButton btnLogin;
+        private LabelButton btnBack;
         private LabelButton btnRegister;
         private Vector2 position;
 
         static public Label lblStatus;
-        public LoginPanel()
+
+        public RegisterPanel()
         {
             this.position = new Vector2(NumberHelper.getCenterX(Config.GAME_WIDTH, 276), 300);
 
             login = new Picture() {
                 position = this.position
             };
+
+            login.position.X += 200;
 
             txtLogin = new TextBox() {
                 maxLength = 26,
@@ -54,8 +59,8 @@ namespace SharpDXEngine.Frames.Menu.Login
                 isPassword = true
             };
 
-            btnLogin = new LabelButton() {
-                caption = "Entrar",
+            btnBack = new LabelButton() {
+                caption = "Voltar",
                 color = Color.White,
                 position = new Vector2(
                     this.position.X + 10,
@@ -64,7 +69,7 @@ namespace SharpDXEngine.Frames.Menu.Login
             };
 
             btnRegister = new LabelButton() {
-                caption = "Registrar",
+                caption = "Confirmar",
                 color = Color.White,
                 position = new Vector2(
                     this.position.X + 208,
@@ -100,7 +105,7 @@ namespace SharpDXEngine.Frames.Menu.Login
                 "Fonts/Georgia"
             );
 
-            btnLogin.Load(content, "Fonts/Georgia");
+            btnBack.Load(content, "Fonts/Georgia");
             btnRegister.Load(content, "Fonts/Georgia");
 
             lblStatus.Load(content, "Fonts/Georgia");
@@ -110,17 +115,17 @@ namespace SharpDXEngine.Frames.Menu.Login
         {
             txtLogin.Update(gameTime);
             txtPassword.Update(gameTime);
-            btnLogin.Update(gameTime);
+            btnBack.Update(gameTime);
             btnRegister.Update(gameTime);
 
-            if (btnLogin.isSubmited == true) {
-                this.Login(txtLogin.text, txtPassword._text);
-                btnLogin.isSubmited = false;
+            if (btnRegister.isSubmited == true) {
+                //this.Login(txtLogin.text, txtPassword._text);
+                btnRegister.isSubmited = false;
             }
 
-            if (btnRegister.isSubmited == true) {
-                btnRegister.isSubmited = false;
-                Menu.actualPanel = TypePanel.Register;
+            if (btnBack.isSubmited == true) {
+                btnBack.isSubmited = false;
+                Menu.actualPanel = TypePanel.Login;
             }
         }
 
@@ -129,7 +134,7 @@ namespace SharpDXEngine.Frames.Menu.Login
             login.Draw(spriteBatch);
             txtLogin.Draw(spriteBatch);
             txtPassword.Draw(spriteBatch);
-            btnLogin.Draw(spriteBatch);
+            btnBack.Draw(spriteBatch);
             btnRegister.Draw(spriteBatch);
             lblStatus.Draw(spriteBatch);
         }

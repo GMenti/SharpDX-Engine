@@ -1,6 +1,7 @@
-﻿namespace Network.Library.Packets
+﻿
+namespace Network.Library.Packets
 {
-    public class LoginPacket
+    public class AccountData
     {
         public string login;
         public string password;

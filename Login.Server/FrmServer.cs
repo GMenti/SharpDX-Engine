@@ -14,7 +14,7 @@ namespace Login.Server
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Database.Load();
         }
 
         private void btnOff_click(object sender, EventArgs e)
@@ -42,6 +42,11 @@ namespace Login.Server
         private void lstPlayers_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnReloadAcconts_Click(object sender, EventArgs e)
+        {
+            Database.LoadAccounts();
         }
     }
 }

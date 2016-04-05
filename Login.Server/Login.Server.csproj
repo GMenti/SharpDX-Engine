@@ -36,6 +36,10 @@
       <HintPath>..\packages\Lidgren.Network.2012.2.15.2\lib\net45\Lidgren.Network.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\Database.cs" />
+    <Compile Include="Objects\Account\Account.cs" />
+    <Compile Include="MySQL\MySQL.cs" />
     <Compile Include="Network\Network.cs" />
     <Compile Include="FrmServer.cs">
       <SubType>Form</SubType>
@@ -59,6 +66,7 @@
     <Compile Include="Network\Network.Forwarder.cs" />
     <Compile Include="Network\Network.Receiver.cs" />
     <Compile Include="Network\Network.Sender.cs" />
+    <Compile Include="Objects\Account\AccountDAO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FrmServer.resx">

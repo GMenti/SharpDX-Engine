@@ -42,24 +42,24 @@ namespace SharpDXEngine
 
         private static void ReceivePackets()
         {
-            NetIncomingMessage incMessage = client.ReadMessage();
+            NetIncomingMessage packet = client.ReadMessage();
 
-            if (incMessage == null) {
+            if (packet == null) {
                 return;
             }
 
-            switch (incMessage.MessageType) {
+            switch (packet.MessageType) {
                 case NetIncomingMessageType.Data:
-                    ReceivePacket(incMessage);
+                    ForwardPacket(packet);
                     break;
                 
                 case NetIncomingMessageType.StatusChanged:
-                    NetConnectionStatus status= (NetConnectionStatus)incMessage.ReadByte();
+                    NetConnectionStatus status= (NetConnectionStatus)packet.ReadByte();
                     Debug.msgBox(status.ToString());
                     break;
             }
 
-            client.Recycle(incMessage);
+            client.Recycle(packet);
         }
 
         public static bool IsConnected()

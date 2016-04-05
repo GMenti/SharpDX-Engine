@@ -31,6 +31,7 @@
             this.btnOn = new System.Windows.Forms.Button();
             this.btnOff = new System.Windows.Forms.Button();
             this.lstPlayers = new System.Windows.Forms.ListBox();
+            this.btnReloadAcconts = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtLog
@@ -80,11 +81,22 @@
             this.lstPlayers.TabIndex = 3;
             this.lstPlayers.SelectedIndexChanged += new System.EventHandler(this.lstPlayers_SelectedIndexChanged);
             // 
+            // btnReloadAcconts
+            // 
+            this.btnReloadAcconts.Location = new System.Drawing.Point(529, 12);
+            this.btnReloadAcconts.Name = "btnReloadAcconts";
+            this.btnReloadAcconts.Size = new System.Drawing.Size(170, 23);
+            this.btnReloadAcconts.TabIndex = 4;
+            this.btnReloadAcconts.Text = "Recarregar Accounts";
+            this.btnReloadAcconts.UseVisualStyleBackColor = true;
+            this.btnReloadAcconts.Click += new System.EventHandler(this.btnReloadAcconts_Click);
+            // 
             // FrmServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(747, 272);
+            this.Controls.Add(this.btnReloadAcconts);
             this.Controls.Add(this.lstPlayers);
             this.Controls.Add(this.btnOff);
             this.Controls.Add(this.btnOn);
@@ -102,6 +114,7 @@
         private System.Windows.Forms.Button btnOff;
         public System.Windows.Forms.TextBox txtLog;
         public System.Windows.Forms.ListBox lstPlayers;
+        private System.Windows.Forms.Button btnReloadAcconts;
     }
 }
 
