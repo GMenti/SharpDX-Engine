@@ -14,5 +14,15 @@ namespace SharpDXEngine.Frames.Menu
             Network.SendLogin(data);
         }
 
+        public static void Register(string user, string password)
+        {
+            AccountData data = new AccountData() {
+                login = user,
+                password = password
+            };
+
+            Network.SendRegister(data);
+        }
+
     }
 }

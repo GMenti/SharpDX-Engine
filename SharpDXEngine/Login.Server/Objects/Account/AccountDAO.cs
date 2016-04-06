@@ -1,30 +1,40 @@
 ﻿using MySql.Data.MySqlClient;
+using Network.Library.Packets;
+using Newtonsoft.Json;
 using System.Collections;
 
 namespace Login.Server.Objects.Account
 {
     static class AccountDAO
     {
-        public static void addAccount(Account newAccount)
+        public static void addAccount(AccountData data)
         {
-            //TODO
+            Account newAcc = new Account() {
+                login = data.login,
+                password = data.password
+            };
+
+            MySqlCommand query = new MySqlCommand("INSERT INTO player (data) VALUES (@data)");
+            query.Parameters.AddWithValue("@data", JsonConvert.SerializeObject(newAcc));
+            MySQL.Save(query);
+
+            Database.accounts.Add(newAcc);
         }
 
         public static ArrayList findAccounts()
         {
-            MySqlDataReader result = MySQL.Find("SELECT * FROM accounts");
+            MySqlDataReader result = MySQL.Find("SELECT * FROM player");
 
             ArrayList accounts = new ArrayList();
             while (result.Read()) {
-                Account account = new Account {
-                    id = result.GetInt32("id"),
-                    login = result.GetString("login"),
-                    password = result.GetString("password")
-                };
+                Account account = JsonConvert.DeserializeObject<Account>(result.GetString("data"));
                 accounts.Add(account);
             }
 
+            MySQL.Close();
+
             return accounts;
         }
+
     }
 }

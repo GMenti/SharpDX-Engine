@@ -17,8 +17,10 @@ namespace SharpDXEngine.Frames.Menu
             }
 
             if (Login.btnRegister.isSubmited == true) {
-                Login.btnRegister.isSubmited = false;
                 Menu.actualPanel = TypePanel.Register;
+                Login.btnRegister.isSubmited = false;
+                Login.Hide();
+                Register.Show();
             }
         }
     }

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using SharpDXEngine.Utilities;
-using SharpDXEngine.Frames.Menu.Register;
 using GameLibrary.Helpers;
 
 namespace SharpDXEngine.Frames.Menu
@@ -13,10 +12,7 @@ namespace SharpDXEngine.Frames.Menu
     {
         private AnimPicture background;
         private Picture logo;
-
         public static TypePanel actualPanel;
-
-        private RegisterPanel registerPanel;
 
         public Menu()
         {
@@ -34,8 +30,7 @@ namespace SharpDXEngine.Frames.Menu
 
             actualPanel = TypePanel.Login;
             Login.Initialize();
-
-            registerPanel = new RegisterPanel();
+            Register.Initialize();
         }
 
         public void Load(ContentManager content)
@@ -52,8 +47,7 @@ namespace SharpDXEngine.Frames.Menu
 
             Login.Load(content);
             Login.Show();
-
-            registerPanel.Load(content);
+            Register.Load(content);
         }
 
         public void Update(GameTime gameTime)
@@ -66,7 +60,7 @@ namespace SharpDXEngine.Frames.Menu
                     break;
 
                 case TypePanel.Register:
-                    registerPanel.Update(gameTime);
+                    Register.Update(gameTime);
                     break;
             }
             
@@ -83,7 +77,7 @@ namespace SharpDXEngine.Frames.Menu
                     break;
 
                 case TypePanel.Register:
-                    registerPanel.Draw(spriteBatch);
+                    Register.Draw(spriteBatch);
                     break;
             }
         }

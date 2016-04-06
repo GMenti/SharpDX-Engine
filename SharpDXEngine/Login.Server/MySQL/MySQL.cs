@@ -7,6 +7,7 @@ namespace Login.Server
     {
         private static string connectionString = "server=localhost; user=ringex; password=ringex; database=pokemon";
         public static MySqlConnection connection;
+        public static int id;
 
         public static void Start()
         {
@@ -39,5 +40,17 @@ namespace Login.Server
 
             return result;
         }
+
+        public static bool Save(MySqlCommand query)
+        {
+            MySQL.Start();
+            query.Connection = MySQL.connection;
+            query.ExecuteNonQuery();
+            MySQL.id = (int) query.LastInsertedId;
+            MySQL.Close();
+
+            return true;
+        }
+
     }
 }

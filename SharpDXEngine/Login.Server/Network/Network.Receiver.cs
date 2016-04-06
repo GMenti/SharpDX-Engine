@@ -27,6 +27,18 @@ namespace Login.Server
             SendMenuError(GetIndex(packet.SenderConnection), finded.ToString());
         }
 
+        public static void ReceiveRegister(NetIncomingMessage packet)
+        {
+            AccountData data = new AccountData();
+            packet.ReadAllFields(data);
+
+            DateTime start = DateTime.Now;
+            AccountDAO.addAccount(data);
+            Program.frmServer.addLog("Register: " + (DateTime.Now.Millisecond - start.Millisecond));
+
+            SendMenuError(GetIndex(packet.SenderConnection), "True");
+        }
+
         public static int GetIndex(NetConnection connection)
         {
             return players.IndexOf(connection);

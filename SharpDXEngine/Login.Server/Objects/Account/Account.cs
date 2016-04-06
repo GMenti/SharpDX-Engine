@@ -8,7 +8,6 @@ namespace Login.Server.Objects.Account
 {
     class Account
     {
-        public int id;
         public string login;
         public string password;
     }

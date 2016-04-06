@@ -14,5 +14,14 @@ namespace SharpDXEngine
 
             client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
         }
+
+        public static void SendRegister(AccountData data)
+        {
+            NetOutgoingMessage message = client.CreateMessage();
+            message.Write((byte)PacketType.Register);
+            message.WriteAllFields(data);
+
+            client.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
+        }
     }
 }

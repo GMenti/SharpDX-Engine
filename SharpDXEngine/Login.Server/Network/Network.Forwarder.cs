@@ -14,6 +14,9 @@ namespace Login.Server
                 case PacketType.Login:
                     ReceiveLogin(packet);
                     break;
+                case PacketType.Register:
+                    ReceiveRegister(packet);
+                    break;
             }
 
         }

@@ -61,7 +61,13 @@
     <Compile Include="Frames\Menu\Login\Login.Show.cs" />
     <Compile Include="Frames\Menu\Login\Login.Update.cs" />
     <Compile Include="Frames\Menu\Menu.cs" />
-    <Compile Include="Frames\Menu\Register\RegisterPanel.cs" />
+    <Compile Include="Frames\Menu\Register\Register.Hide.cs" />
+    <Compile Include="Frames\Menu\Register\Register.Load.cs" />
+    <Compile Include="Frames\Menu\Register\Register.Show.cs" />
+    <Compile Include="Frames\Menu\Register\Register.Update.cs" />
+    <Compile Include="Frames\Menu\Register\Register.Elements.cs" />
+    <Compile Include="Frames\Menu\Register\Register.Draw.cs" />
+    <Compile Include="Frames\Menu\Register\Register.cs" />
     <Compile Include="Frames\Menu\TypePanel.cs" />
     <Compile Include="Frames\Menu\MenuController.cs" />
     <Compile Include="Network\Network.cs" />
